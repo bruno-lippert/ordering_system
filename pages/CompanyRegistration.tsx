@@ -1,80 +1,123 @@
 import React, { useState } from 'react';
 import * as S from '../pageStyles/companyRegistartion'
 import { Company } from '../src/types/Company';
+import { regiterCompany } from '../src/services/companyManagement';
 
 export default function companyRegistration() {
 
-    const [company, setCompany] = useState<Company>({
-      name: '',
-      cnpj: 0,
-      street: '',
-      neighborhood: '',
-      city: '',
-      state: '',
-      country: ''
-    })
+  const states = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO']
 
-    const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCompany({...company, name: e.target.value })
+  const [company, setCompany] = useState<Company>({
+    name: '',
+    cnpj: 0,
+    street: '',
+    neighborhood: '',
+    city: '',
+    state: '',
+    country: ''
+  })
+
+  const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCompany({ ...company, name: e.target.value.trim() })
+  }
+  const handleCNPJ = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCompany({ ...company, cnpj: Number(e.target.value) })
+  }
+  const handleStreet = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCompany({ ...company, street: e.target.value.trim() })
+  }
+  const handleNeighborhood = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCompany({ ...company, neighborhood: e.target.value.trim() })
+  }
+  const handleCity = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCompany({ ...company, city: e.target.value.trim() })
+  }
+  const handleState = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCompany({ ...company, state: e.target.value })
+  }
+  const handleCountry = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCompany({ ...company, country: e.target.value.trim() })
+  }
+
+  const validation = () => {
+    if (company.name === '') {
+      alert('Preencha o campo Nome' + company.name)
+      return false
+    }else if(company.cnpj === 0){
+      alert('Insira CNPJ')
+      return false
+    }else if(company.street === '') {
+      alert('Insira o nome da rua!')
     }
-    const handleCNPJ = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCompany({...company, cnpj: Number(e.target.value) })
+    else if(company.neighborhood === '') {
+      alert('Insira o nome do bairro!')
     }
-    const handleStreet = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCompany({...company, street: e.target.value})
+    else if(company.city === '') {
+      alert('Insira o nome da cidade!')
+    }else if(!states.includes(company.state)) {
+      alert('Selecione um estado!!')
+    } else if(company.country === '') {
+      alert('Insira o nome do país!')
+    }else {
+      return true
     }
-    const handleNeighborhood = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCompany({...company, neighborhood: e.target.value })
+  }
+
+
+  const regiter = async () => {
+    if(validation()) {
+      await regiterCompany(company)
     }
-    const handleCity = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCompany({...company, city: e.target.value })
-    }
-    const handleState = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCompany({...company, state: e.target.value })
-    }
-    const handleCountry = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCompany({...company, country: e.target.value })
-    }
+  }
+  console.log(company.state)
 
   return (
     <S.Container>
       <S.Company>
         <h1>Registrar empresa</h1>
         <div>
-          <label htmlFor="companyName">Nome da empresa:</label>
-          <input type="text" id='companyName'onChange={() => handleName}/>
+          <label htmlFor="companyName">Nome da empresa: </label>
+          <input className="inputData" type="text" id='companyName' onChange={handleName} />
         </div>
 
         <div>
-          <label htmlFor="cnpj">CNPJ:</label>
-          <input type="text" id='cnpj' onChange={() => handleCNPJ}/>
+          <label htmlFor="cnpj">CNPJ: </label>
+          <input className="inputData" type="text" id='cnpj' onChange={handleCNPJ} />
         </div>
 
         <div>
-          <label htmlFor="street">Rua:</label>
-          <input type="text" id='street' onChange={() => handleStreet}/>
+          <label htmlFor="street">Rua: </label>
+          <input className="inputData" type="text" id='street' onChange={handleStreet} />
         </div>
 
         <div>
-          <label htmlFor="neighborhood">Bairro:</label>
-          <input type="text"id='neighborhood' onChange={() => handleNeighborhood}/>
+          <label htmlFor="neighborhood">Bairro: </label>
+          <input className="inputData" type="text" id='neighborhood' onChange={handleNeighborhood} />
         </div>
 
         <div>
-          <label htmlFor="city">Cidade:</label>
-          <input type="text"  onChange={() => handleCity}/>
+          <label htmlFor="city">Cidade: </label>
+          <input className="inputData" type="text" onChange={handleCity} />
         </div>
 
         <div>
-          <label htmlFor="state">Estado</label>
-          <input type="text" id='state' onChange={() => handleState}/>
+          Estado:
+          <select className="inputData" id='state' onChange={handleState}>
+            <option value=""></option>
+            {states.map((state) => {
+              return <option value={state}>{state}</option>
+            })}
+            
+          </select>
+
         </div>
 
         <div>
-          <label htmlFor="country">País:</label>
-          <input type="text" id='country' onChange={() => handleCountry}/>
+          <label htmlFor="country">País: </label>
+          <input className="inputData" type="text" id='country' onChange={handleCountry} />
         </div>
-
+        
+        <input type="submit" value="Cadastrar" onClick={regiter} />
 
       </S.Company>
     </S.Container>
