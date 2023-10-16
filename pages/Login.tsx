@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as S from '../pageStyles/login'
-import { Login } from '@/types/Login';
+import { Login } from '../src/types/Login';
 
 export default function Login() {
     const [login, setLogin] = useState<Login>({email: '', password: ''})
