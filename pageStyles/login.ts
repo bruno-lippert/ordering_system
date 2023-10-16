@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors, fonts } from '../src/styles/themes/theme';
+import { colors } from '../src/styles/themes/theme';
 
 export const Container = styled.div`
     display: flex;
@@ -35,10 +35,12 @@ export const Login = styled.main`
         border: none;
         padding: 5px;
         border-radius: 5px;
+
+        display: flex;
     }
 
     .login {
-        width: 70%;
+        width: 250px;
     }
 
     .submit {
@@ -53,8 +55,7 @@ export const Login = styled.main`
     }
     
     h1 {
-        color: ${colors.tertiary};
-        font-family: ${fonts.arial};
+        color: #000;
         font-size: 2.5em;
 
         margin-bottom: 30px;

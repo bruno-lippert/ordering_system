@@ -17,8 +17,16 @@ export default function Login() {
     <S.Container>
       <S.Login>
         <h1>Login</h1>
-        <input className='login' type="email" placeholder='email@mail.com' onChange={handleEmail}/>
-        <input className='login' type="password" placeholder='password' onChange={handlePassword}/>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input id='email' className='login' type="email" placeholder='email@mail.com' onChange={handleEmail}/>
+        </div>
+
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input id='password' className='login' type="password" placeholder='password' onChange={handlePassword}/>
+        </div>
+
         <input className='submit' type="submit" value="Entrar"/>
       </S.Login>
     </S.Container>
