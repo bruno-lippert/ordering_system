@@ -22,8 +22,6 @@ export const Company = styled.main `
     align-items: center;
     flex-direction: column;
 
-    font-family: ${fonts.arial};
-
     height: 500px;
     width: 400px;
     background-color: ${colors.primary};
@@ -31,4 +29,25 @@ export const Company = styled.main `
     border-radius: 10px;
 
     gap: 10px;
+
+    h1 {
+        margin-bottom: 20px;
+    }
+
+    input[type="text"], select {
+        
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        width: 250px;
+    }
+    input[type="submit"] {
+        border-radius: 5px;
+        padding: 5px;
+        margin: 15px 0 5px 0;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
 `;
