@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import * as S from '../pageStyles/companyRegistartion'
 import { Company } from '../src/types/Company';
 import { regiterCompany } from '../src/services/companyManagement';
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 export default function companyRegistration() {
 
@@ -41,23 +43,23 @@ export default function companyRegistration() {
 
   const validation = () => {
     if (company.name === '') {
-      alert('Preencha o campo Nome' + company.name)
+      toastError(`Nome da empresa não informado!`)
       return false
     }else if(company.cnpj === 0){
-      alert('Insira CNPJ')
+      toastError(`CNPJ não informado!`)
       return false
     }else if(company.street === '') {
-      alert('Insira o nome da rua!')
+      toastError(`Rua não informada!`)
     }
     else if(company.neighborhood === '') {
-      alert('Insira o nome do bairro!')
+      toastError(`Bairro não informado!`)
     }
     else if(company.city === '') {
-      alert('Insira o nome da cidade!')
+      toastError(`Cidade não informado!`)
     }else if(!states.includes(company.state)) {
-      alert('Selecione um estado!!')
+      toastError(`Selecione um estado!`)
     } else if(company.country === '') {
-      alert('Insira o nome do país!')
+      toastError(`País não informado!`)
     }else {
       return true
     }
@@ -70,6 +72,13 @@ export default function companyRegistration() {
     }
   }
   console.log(company.state)
+
+  const toastError = (message: string) => {
+    toast.error(message, {
+      position: toast.POSITION.TOP_RIGHT,
+      theme: 'colored'
+    })
+  }
 
   return (
     <S.Container>
@@ -120,6 +129,7 @@ export default function companyRegistration() {
         <input type="submit" value="Cadastrar" onClick={regiter} />
 
       </S.Company>
+      <ToastContainer />
     </S.Container>
   );
 }
