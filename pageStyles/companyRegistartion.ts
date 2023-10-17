@@ -40,14 +40,22 @@ export const Company = styled.main `
         display: flex;
         justify-content: space-between;
         width: 250px;
+        border: none;
+        padding: 2px;
     }
     input[type="submit"] {
         border-radius: 5px;
         padding: 5px;
         margin: 15px 0 5px 0;
+        background-color: #fff;
+        border: none;
 
         &:hover {
             cursor: pointer;
+        }
+
+        &:active {
+            background-color: ${colors.quaternary};
         }
     }
 `;
