@@ -117,11 +117,12 @@ export default function companyRegistration() {
       if (data && data.length > 0) {
         const id = data[0].idcompany;
         const name = data[0].name;
+        const userName = name.replace(/\s/g, '').toLowerCase()
 
         const adminUser = {
           name: name,
           idcompany: Number(id),
-          email: `${name}@gmail.com`,
+          username: userName,
           password: "orderingsystem",
         };
 
