@@ -147,7 +147,7 @@ export default function companyRegistration() {
     <S.Container>
       <S.Company>
         <h1>Registrar empresa</h1>
-        <div>
+        <div className="inputsContainer">
           <label htmlFor="companyName">Nome da empresa: </label>
           <input
             className="inputData"
@@ -158,7 +158,7 @@ export default function companyRegistration() {
           />
         </div>
 
-        <div>
+        <div className="inputsContainer">
           <label htmlFor="cnpj">CNPJ: </label>
           <input
             className="inputData"
@@ -169,7 +169,7 @@ export default function companyRegistration() {
           />
         </div>
 
-        <div>
+        <div className="inputsContainer">
           <label htmlFor="street">Rua: </label>
           <input
             className="inputData"
@@ -180,7 +180,7 @@ export default function companyRegistration() {
           />
         </div>
 
-        <div>
+        <div className="inputsContainer">
           <label htmlFor="neighborhood">Bairro: </label>
           <input
             className="inputData"
@@ -191,7 +191,7 @@ export default function companyRegistration() {
           />
         </div>
 
-        <div>
+        <div className="inputsContainer">
           <label htmlFor="city">Cidade: </label>
           <input 
           className="inputData"
@@ -200,7 +200,7 @@ export default function companyRegistration() {
            onChange={handleCity} />
         </div>
 
-        <div>
+        <div className="inputsContainer">
           Estado:
           <select className="inputData" id="state" onChange={handleState} value={company.state}>
             <option value=''></option>
@@ -214,7 +214,7 @@ export default function companyRegistration() {
           </select>
         </div>
 
-        <div>
+        <div className="inputsContainer">
           <label htmlFor="country">País: </label>
           <input
             className="inputData"

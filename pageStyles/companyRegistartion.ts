@@ -21,6 +21,7 @@ export const Company = styled.main `
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin: 0 20px;
 
     height: 500px;
     width: 400px;
@@ -34,12 +35,17 @@ export const Company = styled.main `
         margin-bottom: 20px;
     }
 
+    .inputsContainer {
+        margin: 0 20px;
+        width: 85%;
+    }
+
     input[type="text"], select {
         
         border-radius: 5px;
         display: flex;
         justify-content: space-between;
-        width: 250px;
+        width: 100%;
         border: none;
         padding: 2px;
     }
@@ -56,6 +62,21 @@ export const Company = styled.main `
 
         &:active {
             background-color: ${colors.quaternary};
+        }
+    }
+
+    @media(max-width: 350px) {
+        h1 {
+            font-size: 1.6em;
+        }
+    }
+
+    @media(max-width: 270px) {
+        h1 {
+            text-align: center;
+        }
+        input[type="submit"] {
+            margin: 5px 0;
         }
     }
 `;
