@@ -1,7 +1,7 @@
 export type Company = {
     id?: string,
     name: string,
-    cnpj: number,
+    cnpj: string,
     street: string,
     neighborhood: string,
     city: string,
