@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import * as S from "../pageStyles/companyRegistartion";
 import { Company } from "../src/types/Company";
-import { getIdCompanyByCNPJ, regiterCompany } from "../src/services/companyManagement";
+import {
+  getIdCompanyByCNPJ,
+  regiterCompany,
+} from "../src/services/companyManagement";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { User } from "../src/types/User";
-import { getAllUsersByCompanyId, userSingUp } from "../src/services/userManagement";
+import {
+  getAllUsersByCompanyId,
+  userSingUp,
+} from "../src/services/userManagement";
 
 export default function companyRegistration() {
   const states = [
@@ -40,7 +46,7 @@ export default function companyRegistration() {
 
   const [company, setCompany] = useState<Company>({
     name: "",
-    cnpj: 0,
+    cnpj: "",
     street: "",
     neighborhood: "",
     city: "",
@@ -52,7 +58,7 @@ export default function companyRegistration() {
     setCompany({ ...company, name: e.target.value.trim() });
   };
   const handleCNPJ = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCompany({ ...company, cnpj: Number(e.target.value) });
+    setCompany({ ...company, cnpj: e.target.value });
   };
   const handleStreet = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompany({ ...company, street: e.target.value.trim() });
@@ -74,7 +80,7 @@ export default function companyRegistration() {
     if (company.name === "") {
       toastError(`Nome da empresa não informado!`);
       return false;
-    } else if (company.cnpj === 0) {
+    } else if (company.cnpj === "") {
       toastError(`CNPJ não informado!`);
       return false;
     } else if (company.street === "") {
@@ -96,27 +102,36 @@ export default function companyRegistration() {
     if (validation()) {
       await regiterCompany(company);
 
-      const data = await getIdCompanyByCNPJ(company.cnpj);
+      const data = await getIdCompanyByCNPJ(Number(company.cnpj));
+
+      setCompany({
+        name: "",
+        cnpj: "",
+        street: "",
+        neighborhood: "",
+        city: "",
+        state: "",
+        country: "",
+      });
 
       if (data && data.length > 0) {
         const id = data[0].idcompany;
         const name = data[0].name;
-        
+
         const adminUser = {
           name: name,
           idcompany: Number(id),
           email: `${name}@gmail.com`,
-          password: 'orderingsystem'
-        }
+          password: "orderingsystem",
+        };
 
-        await userSingUp(adminUser)
-  
-        localStorage.setItem('currentIdCompany', id.toString());
+        await userSingUp(adminUser);
+
+        localStorage.setItem("currentIdCompany", id.toString());
       } else {
-        console.log('Empresa não encontrada pelo CNPJ.');
+        console.log("Empresa não encontrada pelo CNPJ.");
       }
     }
-      
   };
 
   const toastError = (message: string) => {
@@ -136,6 +151,7 @@ export default function companyRegistration() {
             className="inputData"
             type="text"
             id="companyName"
+            value={company.name}
             onChange={handleName}
           />
         </div>
@@ -146,6 +162,7 @@ export default function companyRegistration() {
             className="inputData"
             type="text"
             id="cnpj"
+            value={company.cnpj}
             onChange={handleCNPJ}
           />
         </div>
@@ -156,6 +173,7 @@ export default function companyRegistration() {
             className="inputData"
             type="text"
             id="street"
+            value={company.street}
             onChange={handleStreet}
           />
         </div>
@@ -166,21 +184,30 @@ export default function companyRegistration() {
             className="inputData"
             type="text"
             id="neighborhood"
+            value={company.neighborhood}
             onChange={handleNeighborhood}
           />
         </div>
 
         <div>
           <label htmlFor="city">Cidade: </label>
-          <input className="inputData" type="text" onChange={handleCity} />
+          <input 
+          className="inputData"
+           type="text"
+           value={company.city}
+           onChange={handleCity} />
         </div>
 
         <div>
           Estado:
-          <select className="inputData" id="state" onChange={handleState}>
-            <option value=""></option>
+          <select className="inputData" id="state" onChange={handleState} value={company.state}>
+            <option value=''></option>
             {states.map((state, key) => {
-              return <option key={key} value={state}>{state}</option>;
+              return (
+                <option key={key} value={state}>
+                  {state}
+                </option>
+              );
             })}
           </select>
         </div>
@@ -191,6 +218,7 @@ export default function companyRegistration() {
             className="inputData"
             type="text"
             id="country"
+            value={company.country}
             onChange={handleCountry}
           />
         </div>
