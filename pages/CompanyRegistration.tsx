@@ -129,6 +129,7 @@ export default function companyRegistration() {
         await userSingUp(adminUser);
 
         localStorage.setItem("currentIdCompany", id.toString());
+        localStorage.setItem("currentUser", name)
       } else {
         console.log("Empresa não encontrada pelo CNPJ.");
       }
