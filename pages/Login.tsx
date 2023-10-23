@@ -17,12 +17,12 @@ export default function Login() {
     <S.Container>
       <S.Login>
         <h1>Login</h1>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input id='email' className='login' type="email" placeholder='email@mail.com' onChange={handleEmail}/>
+        <div className='inputsContainer'>
+          <label htmlFor="email">Username:</label>
+          <input id='username' className='login' type="text" placeholder='username' onChange={handleEmail}/>
         </div>
 
-        <div>
+        <div className='inputsContainer'>
           <label htmlFor="password">Password:</label>
           <input id='password' className='login' type="password" placeholder='password' onChange={handlePassword}/>
         </div>

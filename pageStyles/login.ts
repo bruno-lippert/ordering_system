@@ -30,6 +30,11 @@ export const Login = styled.main`
     border-radius: 10px;
 
     gap: 10px;
+    margin: 0 20px;
+
+    .inputsContainer {
+        width: 85%;
+    }
 
     input {
         border: none;
@@ -40,7 +45,7 @@ export const Login = styled.main`
     }
 
     .login {
-        width: 250px;
+        width: 100%;
     }
 
     .submit {
@@ -59,5 +64,11 @@ export const Login = styled.main`
         font-size: 2.5em;
 
         margin-bottom: 30px;
+    }
+
+    @media(max-width: 350px) {
+        h1 {
+            font-size: 1.9em;
+        }
     }
 `;
