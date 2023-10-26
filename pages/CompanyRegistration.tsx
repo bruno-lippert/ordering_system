@@ -12,6 +12,7 @@ import {
   getAllUsersByCompanyId,
   userSingUp,
 } from "../src/services/userManagement";
+import { useRouter } from "next/router";
 
 export default function companyRegistration() {
   const states = [
@@ -53,6 +54,8 @@ export default function companyRegistration() {
     state: "",
     country: "",
   });
+
+  const router = useRouter()
 
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompany({ ...company, name: e.target.value.trim() });
@@ -129,7 +132,10 @@ export default function companyRegistration() {
         await userSingUp(adminUser);
 
         localStorage.setItem("currentIdCompany", id.toString());
+        localStorage.setItem("currentCompanyName", name)
         localStorage.setItem("currentUser", name)
+
+        router.push('/Main')
       } else {
         console.log("Empresa não encontrada pelo CNPJ.");
       }
