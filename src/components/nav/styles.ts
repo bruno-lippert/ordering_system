@@ -8,14 +8,12 @@ export const Container = styled.div`
     }
 
     background-color: ${colors.quinary};
-    height: 100vh;
 `; 
 
 export const Nav = styled.nav`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 0 20px 20px 20px;
     height: 70px;
 `;
 
