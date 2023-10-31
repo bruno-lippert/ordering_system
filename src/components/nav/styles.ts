@@ -36,14 +36,23 @@ export const Navitens = styled.article`
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
 
+    cursor: pointer;
+
     p {
         font-size: 1.5em;
         font-family: ${fonts.arial};
         margin: auto;
         text-align: center;
         color: #fff;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
+    &:active {
+        background-color: ${colors.secondary};
+    }
 `;
 
 export const NavLoginsContainer = styled.section`
