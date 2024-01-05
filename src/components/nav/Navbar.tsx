@@ -23,9 +23,6 @@ export default function Navbar() {
         <S.Nav>
           <S.NavItensContainer>
             <S.Navitens>
-              <p>Config</p>
-            </S.Navitens>
-            <S.Navitens>
               <p>Clientes</p>
             </S.Navitens>
             <S.Navitens>
