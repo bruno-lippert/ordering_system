@@ -1,33 +1,28 @@
 import React, { useEffect } from "react";
 import { Product } from "../../../../types/Product";
 import * as S from "./styles";
-import rootReducer from "../../../../redux/root-reducer";
 import { useSelector } from "react-redux";
+import ProductTableItem from "../tableItem";
 
-type Props = {
-  prod: Product[];
-};
-
-export default function ProductTableArea({ prod }: Props) {
-  const { products } = useSelector(
-    (rootReducer: any) => rootReducer.productsReducer
-  );
-  console.log(products.map((prod) => prod));
+export default function ProductTableArea() {
+  
   return (
     <S.Container>
       <S.Table>
-        <thead>
-          <S.TableHeadColumn width={10}>ID</S.TableHeadColumn>
-          <S.TableHeadColumn width={40}>Descição</S.TableHeadColumn>
-          <S.TableHeadColumn width={20}>Preço</S.TableHeadColumn>
-          <S.TableHeadColumn width={15}>Em estoque</S.TableHeadColumn>
-          <S.TableHeadColumn width={15}>Unid de medida</S.TableHeadColumn>
-        </thead>
-        <tbody>
-          {prod ? prod.map((prod) => {
-            <tr key={produto.id}>{prod.description}</tr>
-          }) : <p>Nenhum produto cadastrado!</p>}
-        </tbody>
+        <S.TableHeadContainer>
+          <S.TableHeadColumn
+          width={10}
+          style={{borderTopLeftRadius: '8px', borderBottomLeftRadius: '8px'}}>
+            <h3>ID</h3></S.TableHeadColumn>
+          <S.TableHeadColumn width={40}><h3>Descrição</h3></S.TableHeadColumn>
+          <S.TableHeadColumn width={20}><h3>Preço</h3></S.TableHeadColumn>
+          <S.TableHeadColumn width={15}><h3>Em estoque</h3></S.TableHeadColumn>
+          <S.TableHeadColumn
+          width={15}
+          style={{borderTopRightRadius: '8px', borderBottomRightRadius: '8px'}}>
+            <h3>Unid de medida</h3></S.TableHeadColumn>
+        </S.TableHeadContainer>
+        <ProductTableItem />
       </S.Table>
     </S.Container>
   );

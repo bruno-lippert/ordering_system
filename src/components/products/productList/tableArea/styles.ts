@@ -1,16 +1,26 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+import { colors, fonts } from "../../../../styles/themes/theme";
 
-export const Container = styled.section`
+export const Container = styled.section``;
 
+export const Table = styled.div`
+  width: 100%;
+  text-align: left;
+  padding: 0 5px;
 `;
 
-export const Table = styled.table`
-    width: 100%;
-    text-align: left;
-    padding: 0 5px;
-
+export const TableHeadContainer = styled.div`
+  display: flex;
+  margin: 10px 0;
+  height: 50px;
 `;
 
-export const TableHeadColumn = styled.th<{ width?: number }>`
-    width: ${ props => props.width ? `${props.width}%` : `auto`} ;
-`
+export const TableHeadColumn = styled.div<{ width?: number }>`
+  display: flex;
+  align-items: center;
+  width: ${(props) => (props.width ? `${props.width}%` : `auto`)};
+  height: 100%;
+  border: 1px solid black;
+  background-color: ${colors.primary};
+  padding-left: 5px;
+`;
