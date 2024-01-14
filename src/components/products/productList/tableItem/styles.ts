@@ -19,6 +19,7 @@ export const Items = styled.div<{ width?: number }>`
   background-color: ${colors.primary};
   border-radius: 8px;
   height: 30px;
+  cursor: pointer;
 `;
 
 export const ItemsProperty = styled.div<{ width?: number }>`
