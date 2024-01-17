@@ -1,10 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Product } from "../../../../types/Product";
 import * as S from "./styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProductTableItem from "../tableItem";
+import { getProductsByIDCompany } from "../../../../services/productsManagement";
+import { setProduct } from "../../../../redux/products/slice";
 
 export default function ProductTableArea() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    localStorage.setItem("currentIdCompany", "46");
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    setProducts(await getProductsByIDCompany("46"));
+  };
+
+  if(products.length > 0) {
+    setTimeout(() => {
+       dispatch(setProduct(products));
+    }, 0)
+   
+  }
   
   return (
     <S.Container>

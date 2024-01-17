@@ -6,7 +6,7 @@ export default function EditProduct() {
   return (
     <S.EditContainer>
       <Button>
-        Editar
+        Salvar
       </Button>
     </S.EditContainer>
   )

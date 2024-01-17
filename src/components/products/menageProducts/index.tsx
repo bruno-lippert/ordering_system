@@ -7,7 +7,6 @@ import EditProduct from "./editProduct";
 export default function ManageProducts() {
   return (
     <S.Container>
-      <AddProduct />
       <EditProduct />
       <DeleteProduct />
     </S.Container>
