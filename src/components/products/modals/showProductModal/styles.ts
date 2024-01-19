@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../../../styles/themes/theme";
+import { colors } from "../../../../styles/themes/theme";
 
 export const ProductModalContainer = styled.section`
   position: fixed;
@@ -36,7 +36,7 @@ export const ContentContainer = styled.div`
   }
 `;
 
-export const InfosProduct = styled.div`
+export const InfosProduct = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;

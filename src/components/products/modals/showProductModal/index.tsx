@@ -1,10 +1,10 @@
 import React from "react";
-import ManageProducts from "../menageProducts";
+import ManageProducts from "../../menageProducts";
 import * as S from "./styles";
 import { useSelector } from "react-redux";
 import { IoMdCloseCircleOutline } from "react-icons/io";
-import { priceFormatting } from "../../../helpers/formattedInformation";
-import { Product } from "../../../types/Product";
+import { priceFormatting } from "../../../../helpers/formattedInformation";
+import { Product } from "../../../../types/Product";
 
 type Props = {
   setProductModal: (v: boolean) => void;

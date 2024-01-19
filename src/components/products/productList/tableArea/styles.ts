@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { colors, fonts } from "../../../../styles/themes/theme";
 
-export const Container = styled.section``;
+export const TableAreaContainer = styled.section`
+`;
 
 export const Table = styled.div`
   width: 100%;

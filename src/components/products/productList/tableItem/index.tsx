@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 import { Product } from "../../../../types/Product";
 import { getProductsByIDCompany } from "../../../../services/productsManagement";
-import ProductModal from "../../productModal";
+import ProductModal from "../../modals/showProductModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedProduct } from "../../../../redux/products/slice";
 import { priceFormatting } from "../../../../helpers/formattedInformation";

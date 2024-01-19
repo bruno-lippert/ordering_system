@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import ProductTableItem from "../tableItem";
 import { getProductsByIDCompany } from "../../../../services/productsManagement";
 import { setProduct } from "../../../../redux/products/slice";
+import { AddButton } from "../../menageProducts/addProduct/styles";
+import AddProduct from "../../menageProducts/addProduct";
 
 export default function ProductTableArea() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -27,7 +29,7 @@ export default function ProductTableArea() {
   }
   
   return (
-    <S.Container>
+    <S.TableAreaContainer>
       <S.Table>
         <S.TableHeadContainer>
           <S.TableHeadColumn
@@ -44,6 +46,7 @@ export default function ProductTableArea() {
         </S.TableHeadContainer>
         <ProductTableItem />
       </S.Table>
-    </S.Container>
+      
+    </S.TableAreaContainer>
   );
 }
