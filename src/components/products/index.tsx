@@ -10,7 +10,6 @@ export const Products = () => {
     <S.ProductsContainer>
       <ProductFilter />
       <ProductTableArea />
-      <AddProductButton />
     </S.ProductsContainer>
   );
 };

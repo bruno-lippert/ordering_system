@@ -2,17 +2,20 @@ import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 import { Product } from "../../../../types/Product";
 import { getProductsByIDCompany } from "../../../../services/productsManagement";
-import ProductModal from "../../modals/showProductModal";
+import ProductModal from "../../modals/productForm";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedProduct } from "../../../../redux/products/slice";
 import { priceFormatting } from "../../../../helpers/formattedInformation";
+import AddProductButton from "../../menageProducts/addProduct";
 
 export default function ProductTableItem() {
   const [productModal, setProductModal] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false)
   const products = useSelector((state: any) => state.productsReducer.products);
   const dispatch = useDispatch()
 
   const handleProductModal = (item: Product) => {
+    setIsEditing(true)
     setProductModal(true);
     dispatch(setSelectedProduct(item))
   };
@@ -33,7 +36,9 @@ export default function ProductTableItem() {
                 {prod.id}
               </S.ItemsProperty>
               <S.ItemsProperty width={40}>{prod.description}</S.ItemsProperty>
-              <S.ItemsProperty width={20}>R$ {priceFormatting(prod.price)}</S.ItemsProperty>
+              <S.ItemsProperty width={20}>
+                R$ {priceFormatting(prod.price)}
+              </S.ItemsProperty>
               <S.ItemsProperty width={15}>{prod.stockquantity}</S.ItemsProperty>
               <S.ItemsProperty
                 width={15}
@@ -50,8 +55,15 @@ export default function ProductTableItem() {
           <p>Nenhum produto cadastrado</p>
         )}
       </S.ItemsContainer>
+      
+      <AddProductButton setProductModal={setProductModal}/>
 
-      {productModal && <ProductModal setProductModal={setProductModal} />}
+      {productModal && (
+        <ProductModal
+        setProductModal={setProductModal}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing} />
+      )}
     </>
   );
 }
