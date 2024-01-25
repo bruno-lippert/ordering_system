@@ -1,13 +1,16 @@
 import React from "react";
 import * as S from "./styles";
-import AddProduct from "./addProduct";
 import DeleteProduct from "./deleteProduct";
-import EditProduct from "./editProduct";
+import SaveProduct from "./saveProduct";
 
-export default function ManageProducts() {
+type Props = {
+  updateProduct: () => void
+}
+
+export default function ManageProducts({ updateProduct }: Props) {
   return (
     <S.Container>
-      <EditProduct />
+      <SaveProduct updateProduct={updateProduct}/>
       <DeleteProduct />
     </S.Container>
   );

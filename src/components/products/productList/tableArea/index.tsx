@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Product } from "../../../../types/Product";
 import * as S from "./styles";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import ProductTableItem from "../tableItem";
 import { getProductsByIDCompany } from "../../../../services/productsManagement";
 import { setProduct } from "../../../../redux/products/slice";
@@ -15,7 +15,7 @@ export default function ProductTableArea() {
   useEffect(() => {
     localStorage.setItem("currentIdCompany", "46");
     fetchProducts();
-  }, []);
+  }, [products]);
 
   const fetchProducts = async () => {
     setProducts(await getProductsByIDCompany("46"));

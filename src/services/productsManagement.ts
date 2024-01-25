@@ -5,7 +5,8 @@ export async function getProductsByIDCompany(idCompany: string) {
   let { data, error } = await supabase
     .from("products")
     .select("*")
-    .eq("idcompany", idCompany);
+    .eq("idcompany", idCompany)
+    .order("id");
 
     if (error) {
       console.log("Erro ao buscar produtos:", error);
@@ -15,7 +16,7 @@ export async function getProductsByIDCompany(idCompany: string) {
     return data;
 }
 
-export async function addProduct(prod : Product) {
+export async function createProduct(prod: Product) {
   const { data, error } = await supabase
     .from("products")
     .insert(prod)
@@ -27,4 +28,19 @@ export async function addProduct(prod : Product) {
     }
 
     return data;
+}
+
+export async function updatePtoduct(prod: Product, idProd: string) {
+  const { data, error } = await supabase
+        .from('products')
+        .update(prod)
+        .eq('id', idProd)
+        .select()
+
+    if(error) {
+        console.error('Erro ao editar:', error.message);
+        return;
+    }
+
+    return data
 }
