@@ -37,7 +37,7 @@ export default function ProductTableItem() {
               </S.ItemsProperty>
               <S.ItemsProperty width={40}>{prod.description}</S.ItemsProperty>
               <S.ItemsProperty width={20}>
-                {priceFormatting(prod.price)}
+                R$ {priceFormatting(prod.price)}
               </S.ItemsProperty>
               <S.ItemsProperty width={15}>{prod.stockquantity}</S.ItemsProperty>
               <S.ItemsProperty

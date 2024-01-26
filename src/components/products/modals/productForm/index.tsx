@@ -27,6 +27,7 @@ export default function ProductModal({
     stockquantity: 0,
     unitofmeasure: "",
   });
+  const [isPriceInputFocused, setIsPriceInputFocused] = useState<boolean>(false)
 
   const product: Product = useSelector(
     (state: any) => state.productsReducer.selectedProduct
@@ -56,8 +57,10 @@ export default function ProductModal({
     dispatch(setSelectedProduct(prod))
   };
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setProd((prevProd) => {
-      return { ...prevProd, price: Number(event.target.value) };
+    const inputValue = event.target.value.replace(',', '.'); // Substitui vírgula por ponto
+    const parsedValue = parseFloat(inputValue); 
+    setProd((newProd) => {
+      return { ...newProd, price: isNaN(parsedValue) ? undefined : parsedValue };
     });
     dispatch(setSelectedProduct(prod))
   };
@@ -91,7 +94,7 @@ export default function ProductModal({
               name="idprod"
               id="idprod"
               disabled
-              value={isEditing ? prod.id : ""}
+              value={prod.id}
             />
           </S.Input>
 
@@ -102,18 +105,20 @@ export default function ProductModal({
               name="description"
               id="description"
               onChange={handleDescriptionChange}
-              value={isEditing ? prod.description : ""}
+              value={prod.description}
             />
           </S.Input>
 
           <S.Input>
             <label htmlFor="price">Preço:</label>
             <input
-              type="text"
+              type="number"
               name="price"
               id="price"
               onChange={handlePriceChange}
-              value={isEditing ? prod.price : ""}
+              value={isPriceInputFocused ? prod.price : prod.price} //isPriceInputFocused ? prod.price : priceFormatting(Number(prod.price))
+              onFocus={() => setIsPriceInputFocused(true)}
+              onBlur={() => setIsPriceInputFocused(false)}
             />
           </S.Input>
 
@@ -123,7 +128,7 @@ export default function ProductModal({
               type="text"
               name="stockquantity"
               id="stockquantity"
-              value={isEditing ? prod.stockquantity : null}
+              value={prod.stockquantity}
               disabled
             />
           </S.Input>
@@ -131,7 +136,7 @@ export default function ProductModal({
           <S.Input>
             <label htmlFor="unitofmeasure">Uni de medida:</label>
             <select name="unitofmeasure" id="unitofmeasure">
-              <option value={isEditing ? prod.unitofmeasure : null}>
+              <option value={prod.unitofmeasure}>
                 {product.unitofmeasure}
               </option>
             </select>
