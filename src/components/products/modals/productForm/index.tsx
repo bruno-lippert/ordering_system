@@ -60,7 +60,7 @@ export default function ProductModal({
     const inputValue = event.target.value.replace(',', '.'); // Substitui vírgula por ponto
     const parsedValue = parseFloat(inputValue); 
     setProd((newProd) => {
-      return { ...newProd, price: isNaN(parsedValue) ? undefined : parsedValue };
+      return { ...newProd, price: parsedValue };
     });
     dispatch(setSelectedProduct(prod))
   };
@@ -115,10 +115,11 @@ export default function ProductModal({
               type="number"
               name="price"
               id="price"
+              className="teste"
               onChange={handlePriceChange}
-              value={isPriceInputFocused ? prod.price : prod.price} //isPriceInputFocused ? prod.price : priceFormatting(Number(prod.price))
-              onFocus={() => setIsPriceInputFocused(true)}
-              onBlur={() => setIsPriceInputFocused(false)}
+              value={prod.price} //isPriceInputFocused ? prod.price : priceFormatting(Number(prod.price))
+              // onFocus={() => setIsPriceInputFocused(true)}
+              // onBlur={() => setIsPriceInputFocused(false)}
             />
           </S.Input>
 

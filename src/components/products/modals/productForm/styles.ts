@@ -59,7 +59,16 @@ export const Input = styled.div`
     background-color: ${colors.primary};
     width: 100%;
     text-align: end;
+
+    &.teste {
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
   }
+
   select {
     background-color: ${colors.primary};
     border: none;
