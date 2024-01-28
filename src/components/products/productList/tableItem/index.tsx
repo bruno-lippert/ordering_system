@@ -6,7 +6,7 @@ import ProductModal from "../../modals/productForm";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedProduct } from "../../../../redux/products/slice";
 import { priceFormatting } from "../../../../helpers/formattedInformation";
-import AddProductButton from "../../menageProducts/addProduct";
+import SaveProductButton from "../../menageProducts/addProduct";
 
 export default function ProductTableItem() {
   const [productModal, setProductModal] = useState<boolean>(false);
@@ -56,7 +56,7 @@ export default function ProductTableItem() {
         )}
       </S.ItemsContainer>
       
-      <AddProductButton setProductModal={setProductModal}/>
+      <SaveProductButton setProductModal={setProductModal}/>
 
       {productModal && (
         <ProductModal

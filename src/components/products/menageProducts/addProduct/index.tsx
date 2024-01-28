@@ -6,7 +6,7 @@ type Props = {
   setProductModal: (v: boolean) => void;
 }
 
-export default function AddProductButton({ setProductModal }: Props) {
+export default function SaveProductButton({ setProductModal }: Props) {
   return (
     <S.AddContainer>
       <Button onClick={() => setProductModal(true)}>
