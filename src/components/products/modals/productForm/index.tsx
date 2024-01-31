@@ -7,6 +7,7 @@ import { Product } from "../../../../types/Product";
 import { setSelectedProduct } from "../../../../redux/products/slice";
 import {
   createProduct,
+  deletePtoduct,
   updatePtoduct,
 } from "../../../../services/productsManagement";
 
@@ -95,6 +96,11 @@ export default function ProductModal({
     }
   };
 
+  const delProduct = async () => {
+    await deletePtoduct(prod.id)
+    setProductModal(false);
+  }
+
   return (
     <S.ProductModalContainer>
       <S.ContentContainer>
@@ -162,7 +168,7 @@ export default function ProductModal({
           </S.Input>
         </S.InfosProduct>
 
-        <ManageProducts saveProduct={saveProduct} />
+        <ManageProducts saveProduct={saveProduct} delProduct={delProduct}/>
       </S.ContentContainer>
     </S.ProductModalContainer>
   );
