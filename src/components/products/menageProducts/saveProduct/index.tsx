@@ -1,21 +1,15 @@
 import React from "react";
 import * as S from "./styles";
 import { Button } from "../styles";
-import {
-  createProduct,
-  updatePtoduct,
-} from "../../../../services/productsManagement";
-import { useSelector } from "react-redux";
-import { Product } from "../../../../types/Product";
 
 type Props = {
-  updateProduct: () => void;
+  saveProduct: () => void;
 };
 
-export default function SaveProduct({ updateProduct }: Props) {
+export default function SaveProduct({ saveProduct }: Props) {
   return (
     <S.SaveProductContainer>
-      <Button onClick={updateProduct}>Salvar</Button>
+      <Button onClick={saveProduct}>Salvar</Button>
     </S.SaveProductContainer>
   );
 }

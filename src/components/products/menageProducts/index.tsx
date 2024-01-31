@@ -4,13 +4,13 @@ import DeleteProduct from "./deleteProduct";
 import SaveProduct from "./saveProduct";
 
 type Props = {
-  updateProduct: () => void
+  saveProduct: () => void
 }
 
-export default function ManageProducts({ updateProduct }: Props) {
+export default function ManageProducts({ saveProduct }: Props) {
   return (
     <S.Container>
-      <SaveProduct updateProduct={updateProduct}/>
+      <SaveProduct saveProduct={saveProduct}/>
       <DeleteProduct />
     </S.Container>
   );

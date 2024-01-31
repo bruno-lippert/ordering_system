@@ -3,10 +3,12 @@ import ManageProducts from "../../menageProducts";
 import * as S from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdCloseCircleOutline } from "react-icons/io";
-import { priceFormatting } from "../../../../helpers/formattedInformation";
 import { Product } from "../../../../types/Product";
 import { setSelectedProduct } from "../../../../redux/products/slice";
-import { updatePtoduct } from "../../../../services/productsManagement";
+import {
+  createProduct,
+  updatePtoduct,
+} from "../../../../services/productsManagement";
 
 type Props = {
   setProductModal: (v: boolean) => void;
@@ -27,7 +29,6 @@ export default function ProductModal({
     stockquantity: 0,
     unitofmeasure: "",
   });
-  const [isPriceInputFocused, setIsPriceInputFocused] = useState<boolean>(false)
 
   const product: Product = useSelector(
     (state: any) => state.productsReducer.selectedProduct
@@ -50,34 +51,48 @@ export default function ProductModal({
     setIsEditing(false);
   };
 
-  const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDescriptionChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setProd((prevProd) => {
       return { ...prevProd, description: event.target.value };
     });
-    dispatch(setSelectedProduct(prod))
+    dispatch(setSelectedProduct(prod));
   };
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = event.target.value.replace(',', '.'); // Substitui vírgula por ponto
-    const parsedValue = parseFloat(inputValue); 
+    const inputValue = event.target.value.replace(",", "."); // Substitui vírgula por ponto
+    const parsedValue = parseFloat(inputValue);
     setProd((newProd) => {
       return { ...newProd, price: parsedValue };
     });
-    dispatch(setSelectedProduct(prod))
+    dispatch(setSelectedProduct(prod));
   };
 
-  const updateProduct = async () => {
-    await updatePtoduct(
-      {
+  const handleUnitOfMeasureCHange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setProd((newProd) => {
+      return { ...newProd, unitofmeasure: event.target.value };
+    });
+    dispatch(setSelectedProduct(prod));
+  };
+
+  const saveProduct = async () => {
+    if (isEditing) {
+      await updatePtoduct(prod, prod.id);
+
+      setIsEditing(false);
+      setProductModal(false);
+    } else {
+      await createProduct({
+        idcompany: 46,
         description: product.description,
         price: product.price,
         stockquantity: product.stockquantity,
         unitofmeasure: product.unitofmeasure,
-      },
-      product.id
-    );
-
-    setIsEditing(false)
-    setProductModal(false)
+      });
+      setProductModal(false);
+    }
   };
 
   return (
@@ -117,9 +132,7 @@ export default function ProductModal({
               id="price"
               className="teste"
               onChange={handlePriceChange}
-              value={prod.price} //isPriceInputFocused ? prod.price : priceFormatting(Number(prod.price))
-              // onFocus={() => setIsPriceInputFocused(true)}
-              // onBlur={() => setIsPriceInputFocused(false)}
+              value={prod.price}
             />
           </S.Input>
 
@@ -136,15 +149,20 @@ export default function ProductModal({
 
           <S.Input>
             <label htmlFor="unitofmeasure">Uni de medida:</label>
-            <select name="unitofmeasure" id="unitofmeasure">
+            <select
+              name="unitofmeasure"
+              id="unitofmeasure"
+              onChange={handleUnitOfMeasureCHange}
+            >
               <option value={prod.unitofmeasure}>
                 {product.unitofmeasure}
               </option>
+              <option value="unid">Unid</option>
             </select>
           </S.Input>
         </S.InfosProduct>
 
-        <ManageProducts updateProduct={updateProduct} />
+        <ManageProducts saveProduct={saveProduct} />
       </S.ContentContainer>
     </S.ProductModalContainer>
   );
