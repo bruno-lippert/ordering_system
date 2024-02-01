@@ -1,12 +1,14 @@
 import supabase from "../database";
 import { Product } from "../types/Product";
 
-export async function getProductsByIDCompany(idCompany: string) {
-  let { data, error } = await supabase
-    .from("products")
-    .select("*")
-    .eq("idcompany", idCompany)
-    .order("id");
+export async function getProductsByIDCompany(
+  idCompany: string
+) {
+    let { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .eq("idcompany", idCompany)
+      .order("id");
 
   if (error) {
     console.log("Erro ao buscar produtos:", error);
@@ -43,10 +45,7 @@ export async function updatePtoduct(prod: Product, idProd: string) {
 }
 
 export async function deletePtoduct(idProd: string) {
-  const { error } = await supabase
-    .from("products")
-    .delete()
-    .eq("id", idProd);
+  const { error } = await supabase.from("products").delete().eq("id", idProd);
 
   if (error) {
     console.error("Erro ao editar:", error.message);
