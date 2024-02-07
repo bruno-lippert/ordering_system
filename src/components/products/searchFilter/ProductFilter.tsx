@@ -25,8 +25,6 @@ export default function ProductFilter() {
           />
         </div>
       </S.InputArea>
-
-      <S.SearchButton className="search" type="button" value="Pesquisar"/>
     </S.Container>
   );
 }

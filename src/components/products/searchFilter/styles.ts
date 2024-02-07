@@ -40,7 +40,3 @@ export const InputArea = styled.div`
         gap: 5px;
     }
 `;
-
-export const SearchButton = styled.input`
-
-`;
