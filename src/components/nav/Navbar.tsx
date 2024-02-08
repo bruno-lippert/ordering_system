@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 import { useRouter } from "next/router";
 
 export default function Navbar() {
-    const [currentUser, setCurrentUser] = useState<string>("TechCompany");
-    const [currentCompany, setCurrentCompany] = useState<string>("Bruno Lippert");
+    const [currentUser, setCurrentUser] = useState<string>("");
+    const [currentCompany, setCurrentCompany] = useState<string>("");
   
     const router = useRouter();
   
-    // useEffect(() => {
-    //   setCurrentUser(localStorage.getItem("currentUser"))
-    //   setCurrentCompany(localStorage.getItem("currentCompanyName"))
-    // })
+    useEffect(() => {
+      setCurrentUser(localStorage.getItem("currentUser"))
+      setCurrentCompany(localStorage.getItem("currentCompanyName"))
+    })
     
     const logout = () => {
       localStorage.clear();

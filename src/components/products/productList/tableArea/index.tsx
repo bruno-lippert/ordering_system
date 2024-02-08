@@ -10,17 +10,19 @@ import { ProductsContext } from "../../../../context/ProductsContext";
 export default function ProductTableArea() {
   const { description } =
     useContext(ProductsContext);
-
-  const [products, setProducts] = useState<Product[]>([]);
   const dispatch = useDispatch();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [idCompany, setIdCompany] = useState<string>()
+  
 
   useEffect(() => {
-    localStorage.setItem("currentIdCompany", "46");
+    //localStorage.setItem("", "46"); 
+    setIdCompany(localStorage.getItem("currentIdCompany"))
     fetchProducts();
   }, [products, description]);
 
   const fetchProducts = async () => {
-    const fetchedProducts = await getProductsByIDCompany("46");
+    const fetchedProducts = await getProductsByIDCompany(idCompany);
     
     // Se houver uma descrição, filtre os produtos com base nela
     const filteredProducts = description
@@ -32,7 +34,7 @@ export default function ProductTableArea() {
     setProducts(filteredProducts);
   };
 
-  if (products.length > 0) {
+  if (products && products.length > 0) {
     setTimeout(() => {
       dispatch(setProduct(products));
     }, 0);

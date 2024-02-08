@@ -133,9 +133,9 @@ export default function companyRegistration() {
 
         localStorage.setItem("currentIdCompany", id.toString());
         localStorage.setItem("currentCompanyName", name)
-        localStorage.setItem("currentUser", name)
+        localStorage.setItem("currentUser", userName)
 
-        router.push('/Main')
+        router.push('/System')
       } else {
         console.log("Empresa não encontrada pelo CNPJ.");
       }

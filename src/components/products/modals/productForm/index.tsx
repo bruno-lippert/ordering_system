@@ -86,7 +86,7 @@ export default function ProductModal({
       setProductModal(false);
     } else {
       await createProduct({
-        idcompany: 46,
+        idcompany: Number(localStorage.getItem("currentIdCompany")),
         description: product.description,
         price: product.price,
         stockquantity: product.stockquantity,
