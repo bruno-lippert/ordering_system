@@ -8,25 +8,23 @@ import { setProduct } from "../../../../redux/products/slice";
 import { ProductsContext } from "../../../../context/ProductsContext";
 
 export default function ProductTableArea() {
-  const { description } =
-    useContext(ProductsContext);
+  const { description } = useContext(ProductsContext);
   const dispatch = useDispatch();
   const [products, setProducts] = useState<Product[]>([]);
-  const [idCompany, setIdCompany] = useState<string>()
-  
+  const [idCompany, setIdCompany] = useState<string>();
 
   useEffect(() => {
-    //localStorage.setItem("", "46"); 
-    setIdCompany(localStorage.getItem("currentIdCompany"))
+    //localStorage.setItem("", "46");
+    setIdCompany(localStorage.getItem("currentIdCompany"));
     fetchProducts();
   }, [products, description]);
 
   const fetchProducts = async () => {
     const fetchedProducts = await getProductsByIDCompany(idCompany);
-    
+
     // Se houver uma descrição, filtre os produtos com base nela
     const filteredProducts = description
-      ? fetchedProducts.filter(product =>
+      ? fetchedProducts.filter((product) =>
           product.description.toLowerCase().includes(description.toLowerCase())
         )
       : fetchedProducts;
@@ -45,18 +43,15 @@ export default function ProductTableArea() {
       <S.Table>
         <S.TableHeadContainer>
           <S.TableHeadColumn
-            width={10}
+            width={45}
             style={{
               borderTopLeftRadius: "8px",
               borderBottomLeftRadius: "8px",
             }}
           >
-            <h3>ID</h3>
-          </S.TableHeadColumn>
-          <S.TableHeadColumn width={40}>
             <h3>Descrição</h3>
           </S.TableHeadColumn>
-          <S.TableHeadColumn width={20}>
+          <S.TableHeadColumn width={25}>
             <h3>Preço</h3>
           </S.TableHeadColumn>
           <S.TableHeadColumn width={15}>

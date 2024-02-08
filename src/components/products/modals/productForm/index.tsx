@@ -108,16 +108,6 @@ export default function ProductModal({
           <IoMdCloseCircleOutline />
         </div>
         <S.InfosProduct>
-          <S.Input>
-            <label htmlFor="idprod">Cód:</label>
-            <input
-              type="text"
-              name="idprod"
-              id="idprod"
-              disabled
-              value={prod.id}
-            />
-          </S.Input>
 
           <S.Input>
             <label htmlFor="description">Descrição:</label>
