@@ -20,7 +20,8 @@ export default function ProductTableArea() {
   }, [products, description]);
 
   const fetchProducts = async () => {
-    const fetchedProducts = await getProductsByIDCompany(idCompany);
+    try {
+      const fetchedProducts = await getProductsByIDCompany(idCompany);
 
     // Se houver uma descrição, filtre os produtos com base nela
     const filteredProducts = description
@@ -30,6 +31,10 @@ export default function ProductTableArea() {
       : fetchedProducts;
 
     setProducts(filteredProducts);
+    } catch {
+      setProducts([])
+    }
+    
   };
 
   if (products && products.length > 0) {
