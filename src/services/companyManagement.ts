@@ -28,3 +28,17 @@ export async function getIdCompanyByCNPJ(cnpj: number) {
 
   return data;
 }
+
+export async function getIdCompanyByID(id: number) {
+  let { data, error } = await supabase
+  .from("company")
+  .select("*")
+  .eq('idcompany', id)
+
+  if (error) {
+    console.log("Erro ao consultar empresa!:", error);
+    return null;
+  }
+
+  return data;
+}
