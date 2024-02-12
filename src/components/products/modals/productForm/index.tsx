@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ManageProducts from "../../menageProducts";
 import * as S from "./styles";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,10 +57,11 @@ export default function ProductModal({
   const handleDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
+    const newDescription = event.target.value;
     setProd((prevProd) => {
-      return { ...prevProd, description: event.target.value };
+      return { ...prevProd, description: newDescription };
     });
-    dispatch(setSelectedProduct(prod));
+    dispatch(setSelectedProduct({ ...prod, description: newDescription }));
   };
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value.replace(",", "."); // Substitui vírgula por ponto
@@ -66,40 +69,62 @@ export default function ProductModal({
     setProd((newProd) => {
       return { ...newProd, price: parsedValue };
     });
-    dispatch(setSelectedProduct(prod));
+    dispatch(setSelectedProduct({ ...prod, price: parsedValue }));
   };
 
-  const handleUnitOfMeasureCHange = (
+  const handleUnitOfMeasureChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
+    const newUnitOfMeasure = event.target.value;
     setProd((newProd) => {
       return { ...newProd, unitofmeasure: event.target.value };
     });
-    dispatch(setSelectedProduct(prod));
+    dispatch(setSelectedProduct({ ...prod, unitofmeasure: newUnitOfMeasure }));
   };
 
   const saveProduct = async () => {
-    if (isEditing) {
-      await updatePtoduct(prod, prod.id);
+    if (validation()) {
+      if (isEditing) {
+        await updatePtoduct(prod, prod.id);
 
-      setIsEditing(false);
-      setProductModal(false);
-    } else {
-      await createProduct({
-        idcompany: Number(localStorage.getItem("currentIdCompany")),
-        description: product.description,
-        price: product.price,
-        stockquantity: product.stockquantity,
-        unitofmeasure: product.unitofmeasure,
-      });
-      setProductModal(false);
+        setIsEditing(false);
+        setProductModal(false);
+      } else {
+        await createProduct({
+          idcompany: Number(localStorage.getItem("currentIdCompany")),
+          description: prod.description,
+          price: prod.price,
+          stockquantity: prod.stockquantity,
+          unitofmeasure: prod.unitofmeasure,
+        });
+        setProductModal(false);
+      }
     }
   };
 
   const delProduct = async () => {
-    await deletePtoduct(prod.id)
+    await deletePtoduct(prod.id);
     setProductModal(false);
-  }
+  };
+
+  const validation = () => {
+    if (prod.description == "") {
+      toastError(`Descrição do produto não informado!`);
+    } else if (isNaN(prod.price)) {
+      toastError(`Preço do produto não informado!`);
+    } else if (prod.unitofmeasure == "") {
+      toastError(`Undidade de medida não informado!`);
+    } else {
+      return true;
+    }
+  };
+
+  const toastError = (message: string) => {
+    toast.error(message, {
+      position: toast.POSITION.TOP_RIGHT,
+      theme: "colored",
+    });
+  };
 
   return (
     <S.ProductModalContainer>
@@ -108,7 +133,6 @@ export default function ProductModal({
           <IoMdCloseCircleOutline />
         </div>
         <S.InfosProduct>
-
           <S.Input>
             <label htmlFor="description">Descrição:</label>
             <input
@@ -148,7 +172,7 @@ export default function ProductModal({
             <select
               name="unitofmeasure"
               id="unitofmeasure"
-              onChange={handleUnitOfMeasureCHange}
+              onChange={handleUnitOfMeasureChange}
             >
               <option value={prod.unitofmeasure}>
                 {product.unitofmeasure}
@@ -158,8 +182,9 @@ export default function ProductModal({
           </S.Input>
         </S.InfosProduct>
 
-        <ManageProducts saveProduct={saveProduct} delProduct={delProduct}/>
+        <ManageProducts saveProduct={saveProduct} delProduct={delProduct} />
       </S.ContentContainer>
+      <ToastContainer />
     </S.ProductModalContainer>
   );
 }
