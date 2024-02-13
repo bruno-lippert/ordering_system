@@ -3,7 +3,7 @@ import * as S from './styles';
 import { Button } from '../styles';
 import { ProductsContext } from '../../../../context/ProductsContext';
 
-export default function SaveProductButton() {
+export default function AddProductButton() {
   const { productModal, setProductModal } = useContext(ProductsContext);
   return (
     <S.AddContainer>

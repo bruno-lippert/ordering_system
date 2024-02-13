@@ -6,9 +6,9 @@ import ProductTableItem from "../tableItem";
 import { getProductsByIDCompany } from "../../../../services/productsManagement";
 import { setProduct } from "../../../../redux/products/slice";
 import { ProductsContext } from "../../../../context/ProductsContext";
-import SaveProductButton from "../../menageProducts/addProduct";
 import { MdArrowBackIos } from "react-icons/md";
 import { MdArrowForwardIos } from "react-icons/md";
+import AddProductButton from "../../menageProducts/addProduct";
 
 
 
@@ -103,11 +103,11 @@ export default function ProductTableArea() {
 
         <div style={{
           display: "flex",
-          flexDirection:"row",
           justifyContent: "space-between",
-          width: "100%"
+          alignItems: "center",
+          padding: "10px 0"
         }}>
-          <SaveProductButton />
+          <AddProductButton />
           <S.PageControlContainer>
             <S.PreviousPage onClick={handlePreviousPage}>
               <MdArrowBackIos />
