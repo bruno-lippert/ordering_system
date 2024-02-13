@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import * as S from "./styles";
 import { Product } from "../../../../types/Product";
 import { getProductsByIDCompany } from "../../../../services/productsManagement";
@@ -7,9 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSelectedProduct } from "../../../../redux/products/slice";
 import { priceFormatting } from "../../../../helpers/formattedInformation";
 import SaveProductButton from "../../menageProducts/addProduct";
+import { ProductsContext } from "../../../../context/ProductsContext";
 
-export default function ProductTableItem() {
-  const [productModal, setProductModal] = useState<boolean>(false);
+type Props = {
+  itemsToDisplay: Product[]
+}
+
+export default function ProductTableItem({ itemsToDisplay }: Props) {
+  const { productModal, setProductModal } = useContext(ProductsContext);
+
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const products = useSelector((state: any) => state.productsReducer.products);
   const dispatch = useDispatch();
@@ -23,8 +29,8 @@ export default function ProductTableItem() {
   return (
     <>
       <S.ItemsContainer>
-        {products ? (
-          products.map((prod) => (
+        {itemsToDisplay ? (
+          itemsToDisplay.map((prod) => (
             <S.Items key={prod.id} onClick={() => handleProductModal(prod)}>
               <S.ItemsProperty
                 width={45}
@@ -36,7 +42,7 @@ export default function ProductTableItem() {
                 {prod.description}
               </S.ItemsProperty>
               <S.ItemsProperty width={25}>
-                R$ {priceFormatting(prod.price)}
+                R$ {priceFormatting(prod.price.toString())}
               </S.ItemsProperty>
               <S.ItemsProperty width={15}>{prod.stockquantity}</S.ItemsProperty>
               <S.ItemsProperty
@@ -55,11 +61,8 @@ export default function ProductTableItem() {
         )}
       </S.ItemsContainer>
 
-      <SaveProductButton setProductModal={setProductModal} />
-
       {productModal && (
         <ProductModal
-          setProductModal={setProductModal}
           isEditing={isEditing}
           setIsEditing={setIsEditing}
         />

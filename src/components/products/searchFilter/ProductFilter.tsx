@@ -3,12 +3,12 @@ import * as S from "./styles";
 import { ProductsContext } from "../../../context/ProductsContext";
 
 export default function ProductFilter() {
-  const { description, setDescription } = useContext(ProductsContext);
+  const { productDescriptionToFilter, setproductDescriptionToFilter } = useContext(ProductsContext);
 
   const handleProductDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setDescription(event.target.value);
+    setproductDescriptionToFilter(event.target.value);
   };
 
   return (
@@ -20,7 +20,7 @@ export default function ProductFilter() {
             type="text"
             name="description"
             id="description"
-            value={description} 
+            value={productDescriptionToFilter} 
             onChange={handleProductDescriptionChange}
           />
         </div>

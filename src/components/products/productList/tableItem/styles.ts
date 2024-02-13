@@ -18,7 +18,7 @@ export const Items = styled.div<{ width?: number }>`
   display: flex;
   background-color: ${colors.primary};
   border-radius: 8px;
-  height: 30px;
+  height: 40px;
   cursor: pointer;
 `;
 

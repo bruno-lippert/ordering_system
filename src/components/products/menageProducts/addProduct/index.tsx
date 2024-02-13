@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import * as S from './styles';
 import { Button } from '../styles';
+import { ProductsContext } from '../../../../context/ProductsContext';
 
-type Props = {
-  setProductModal: (v: boolean) => void;
-}
-
-export default function SaveProductButton({ setProductModal }: Props) {
+export default function SaveProductButton() {
+  const { productModal, setProductModal } = useContext(ProductsContext);
   return (
     <S.AddContainer>
       <Button onClick={() => setProductModal(true)}>

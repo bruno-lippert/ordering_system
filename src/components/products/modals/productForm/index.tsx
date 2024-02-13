@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ManageProducts from "../../menageProducts";
@@ -12,18 +12,18 @@ import {
   deletePtoduct,
   updatePtoduct,
 } from "../../../../services/productsManagement";
+import { ProductsContext } from "../../../../context/ProductsContext";
 
 type Props = {
-  setProductModal: (v: boolean) => void;
   isEditing: boolean;
   setIsEditing: (v: boolean) => void;
 };
 
 export default function ProductModal({
-  setProductModal,
   isEditing,
   setIsEditing,
 }: Props) {
+  const { productModal, setProductModal } = useContext(ProductsContext);
   const dispatch = useDispatch();
   const [prod, setProd] = useState<Product>({
     id: "",

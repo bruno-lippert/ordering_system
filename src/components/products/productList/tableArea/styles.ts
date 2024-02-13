@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { colors, fonts } from "../../../../styles/themes/theme";
 
-export const TableAreaContainer = styled.section`
-`;
+export const TableAreaContainer = styled.section``;
 
 export const Table = styled.div`
   width: 100%;
@@ -25,3 +24,18 @@ export const TableHeadColumn = styled.div<{ width?: number }>`
   background-color: ${colors.primary};
   padding-left: 5px;
 `;
+
+export const Teste = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const PageControlContainer = styled.div`
+  display: flex;
+`;
+
+export const PreviousPage = styled.div``;
+
+export const PageControl = styled.div``;
+
+export const NextPage = styled.div``;
