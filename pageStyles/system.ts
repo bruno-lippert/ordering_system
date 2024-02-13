@@ -6,7 +6,8 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 70px;
 
-    background-color: ${colors.quinary};
-    height: 100vh;
+    background-color: ${colors.tertiary};
+    height: 100%;
+    min-height: 100vh;
     padding: 0 50px 50px 50px;
 `;

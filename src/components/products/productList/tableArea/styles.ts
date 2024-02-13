@@ -25,17 +25,30 @@ export const TableHeadColumn = styled.div<{ width?: number }>`
   padding-left: 5px;
 `;
 
-export const Teste = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 export const PageControlContainer = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-export const PreviousPage = styled.div``;
+export const PreviousPage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: ${colors.primary};
+  border-radius: 5px;
+  padding: 5px;
+`;
 
 export const PageControl = styled.div``;
 
-export const NextPage = styled.div``;
+export const NextPage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: ${colors.primary};
+  border-radius: 5px;
+  padding: 5px;
+`;

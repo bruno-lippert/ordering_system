@@ -3,12 +3,10 @@ export const defaultTheme = {
 }
 
 export const colors = {
-    primary: '#F26E22',
-    secondary: '#F2811D',
-    tertiary: '#F2F2F2',
-    quaternary: '#BAD0D9',
-    quinary: '#2D4D59',
-    background: '#10191e'
+    primary: '#55a349',
+    secondary: '#d5e8cd',
+    tertiary: '#aad1a1',
+    background: '#34ce38'
 }
 
 export const fonts = {

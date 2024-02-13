@@ -17,7 +17,7 @@ export const Container = styled.div`
     input {
         border: none;
         border-radius: 5px;
-        background-color: ${colors.quaternary};
+        background-color: ${colors.tertiary};
         padding: 2px;
 
     }

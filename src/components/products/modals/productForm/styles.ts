@@ -23,7 +23,7 @@ export const ContentContainer = styled.div`
   display: flex;
   padding: 55px 10px;
   width: 30%;
-  background-color: ${colors.quaternary};
+  background-color: ${colors.tertiary};
   position: relative;
   gap: 50px;
 
@@ -60,13 +60,13 @@ export const Input = styled.div`
     width: 100%;
     text-align: end;
 
-    &.teste {
+    /* &.teste {
       &::-webkit-inner-spin-button,
       &::-webkit-outer-spin-button {
         -webkit-appearance: none;
         margin: 0;
       }
-    }
+    } */
   }
 
   select {
