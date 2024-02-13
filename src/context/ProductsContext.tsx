@@ -4,13 +4,15 @@ import { Product } from "../types/Product";
 
 export const ProductsContext = createContext(undefined);
 
-export default function ProductsProvider({children}) {
-    const [description, setDescription] = useState<string>();
-
+export default function ProductsProvider({ children }) {
+  const [productDescriptionToFilter, setproductDescriptionToFilter] = useState<string>();
+  const [productModal, setProductModal] = useState<boolean>(false);
 
   return (
-    <ProductsContext.Provider value={{description, setDescription}}>
+    <ProductsContext.Provider
+      value={{ productDescriptionToFilter, setproductDescriptionToFilter, productModal, setProductModal }}
+    >
       {children}
     </ProductsContext.Provider>
-  )
+  );
 }
