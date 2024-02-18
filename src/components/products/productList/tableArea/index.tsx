@@ -47,9 +47,6 @@ export default function ProductTableArea() {
         
 
       setProducts(filteredProducts);
-      if(totalPages == 1) {
-        setCurrentPage(1)
-      }
     } catch {
       setProducts([]);
     }
