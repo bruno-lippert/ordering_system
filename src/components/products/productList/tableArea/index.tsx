@@ -65,12 +65,18 @@ export default function ProductTableArea() {
       setCurrentPage(currentPage - 1);
     }
   };
-
   const handleNextPage = () => {
     if (currentPage !== totalPages) {
       setCurrentPage(currentPage + 1);
     }
   };
+
+  const goToFirstPage = () => {
+    setCurrentPage(1)
+  }
+  const goToLastPage = () => {
+    setCurrentPage(totalPages)
+  }
 
   return (
     <S.TableAreaContainer>
@@ -111,15 +117,28 @@ export default function ProductTableArea() {
         }}>
           <AddProductButton />
           <S.PageControlContainer>
-            <S.PreviousPage onClick={handlePreviousPage}>
+
+            <S.FirstPage onClick={goToFirstPage} disabled={currentPage == 1 ? true : false}>
+              <MdArrowBackIos />
+              <MdArrowBackIos />
+            </S.FirstPage>
+
+            <S.PreviousPage onClick={handlePreviousPage} disabled={currentPage == 1 ? true : false}>
               <MdArrowBackIos />
             </S.PreviousPage>
+
             <S.PageControl>
               {currentPage} de {totalPages}
             </S.PageControl>
-            <S.NextPage onClick={handleNextPage}>
+
+            <S.NextPage onClick={handleNextPage} disabled={currentPage == totalPages ? true : false}>
               <MdArrowForwardIos />
             </S.NextPage>
+
+            <S.LastPage onClick={goToLastPage} disabled={currentPage == totalPages ? true : false}>
+              <MdArrowForwardIos />
+              <MdArrowForwardIos />
+            </S.LastPage>
           </S.PageControlContainer>
         </div>
       </S.Table>

@@ -31,7 +31,7 @@ export const PageControlContainer = styled.div`
   align-items: center;
 `;
 
-export const PreviousPage = styled.div`
+export const PreviousPage = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,12 +43,6 @@ export const PreviousPage = styled.div`
 
 export const PageControl = styled.div``;
 
-export const NextPage = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  background-color: ${colors.primary};
-  border-radius: 5px;
-  padding: 5px;
-`;
+export const NextPage = styled(PreviousPage)``;
+export const FirstPage = styled(PreviousPage)``;
+export const LastPage = styled(PreviousPage)``;
