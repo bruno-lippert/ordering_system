@@ -20,7 +20,7 @@ type Props = {
 };
 
 export default function ProductModal({ isEditing, setIsEditing }: Props) {
-  const { productModal, setProductModal } = useContext(ProductsContext)!;
+  const { productModal, setProductModal, fetchProducts } = useContext(ProductsContext)!;
   const dispatch = useDispatch();
   const [prod, setProd] = useState<Product>({
     id: "",
@@ -95,6 +95,7 @@ export default function ProductModal({ isEditing, setIsEditing }: Props) {
           unitofmeasure: prod.unitofmeasure,
         });
         setProductModal(false);
+        fetchProducts()
       }
     }
   };
@@ -103,6 +104,7 @@ export default function ProductModal({ isEditing, setIsEditing }: Props) {
     try {
       await deletePtoduct(prod.id!);
       setProductModal(false);
+      fetchProducts()
     } catch {
       toastError(`Erro ao excluir produto!`)
     }

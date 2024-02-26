@@ -12,13 +12,13 @@ import AddProductButton from "../../menageProducts/addProduct";
 import { useRouter } from "next/router";
 
 export default function ProductTableArea() {
-  const { productDescriptionToFilter } = useContext(ProductsContext)!;
+  const { productDescriptionToFilter, idCompany, setIdCompany, products, setProducts, fetchProducts } = useContext(ProductsContext)!;
 
   const dispatch = useDispatch();
-  const router = useRouter()
+  const router = useRouter();
 
-  const [products, setProducts] = useState<Product[]>([]);
-  const [idCompany, setIdCompany] = useState<string>();
+  // const [products, setProducts] = useState<Product[]>([]);
+  // const [idCompany, setIdCompany] = useState<string>();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsToDisplay, setItemsToDisplay] = useState<Product[]>();
   const [totalPages, setTotalPages] = useState<number>(1);
@@ -29,54 +29,43 @@ export default function ProductTableArea() {
 
   useEffect(() => {
     const id = localStorage.getItem("currentIdCompany");
-    if(id) {
-      setIdCompany(id)
-      console.log(id)
+    if (id) {
+      setIdCompany(id);
+      console.log(id);
     } else {
-      alert("Empresa não encontrada!")
-      localStorage.clear()
-      router.push('/Login')
+      alert("Empresa não encontrada!");
+      localStorage.clear();
+      router.push("/Login");
     }
     fetchProducts();
   }, []);
 
   useEffect(() => {
-    if(idCompany){
-      fetchProducts()
+    if (idCompany) {
+      fetchProducts();
     }
-    
-  }, [idCompany, productDescriptionToFilter])
+  }, [idCompany, productDescriptionToFilter]);
 
+  // const fetchProducts = async () => {
+  //   if (idCompany) {
+  //     const fetchedProducts = await getProductsByIDCompany(idCompany);
+  //     console.log(idCompany);
 
-  const fetchProducts = async () => {
-    try {
-      if (idCompany) {
-        const fetchedProducts = await getProductsByIDCompany(idCompany);
-        console.log(idCompany)
-
-        if (fetchedProducts !== null) {
-          // Se houver uma descrição, filtre os produtos com base nela
-          const filteredProducts = productDescriptionToFilter
-            ? fetchedProducts.filter((product) =>
-                product.description
-                  .toLowerCase()
-                  .includes(productDescriptionToFilter.toLowerCase())
-              )
-            : fetchedProducts;
-          setProducts(filteredProducts);
-        }
-      } else{
-        setProducts([])
-      }
-    } catch {
-      setProducts([{
-        description:"teste",
-        price:5,
-        stockquantity:5,
-        unitofmeasure: "unid",
-      }]);
-    }
-  };
+  //     if (fetchedProducts !== null) {
+  //       // Se houver uma descrição, filtre os produtos com base nela
+  //       const filteredProducts = productDescriptionToFilter
+  //         ? fetchedProducts.filter((product) =>
+  //             product.description
+  //               .toLowerCase()
+  //               .includes(productDescriptionToFilter.toLowerCase())
+  //           )
+  //         : fetchedProducts;
+  //       setProducts(filteredProducts);
+  //     }
+  //   } else {
+  //     setProducts([]);
+  //   }
+  // };
 
   if (products && products.length > 0) {
     setTimeout(() => {
