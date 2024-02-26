@@ -7,7 +7,7 @@ export const Container = styled.div`
     align-items: center;
 
     height: 100vh;
-    background-color: ${colors.quinary};
+    background-color: ${colors.secondary};
 
 `;
 
@@ -55,7 +55,7 @@ export const Login = styled.main`
             cursor: pointer;
         }
         &:active {
-            background-color: ${colors.quaternary};
+            background-color: ${colors.tertiary};
         }
     }
     
@@ -66,7 +66,14 @@ export const Login = styled.main`
         margin-bottom: 30px;
     }
 
+    .companyRegistration {
+        &:hover {
+            color: ${colors.secondary};
+        }
+    }
+
     @media(max-width: 350px) {
+        height: 400px;
         h1 {
             font-size: 1.9em;
         }
