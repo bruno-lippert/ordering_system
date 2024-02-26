@@ -1,14 +1,12 @@
 import supabase from "../database";
 import { Product } from "../types/Product";
 
-export async function getProductsByIDCompany(
-  idCompany: string
-) {
-    let { data, error } = await supabase
-      .from("products")
-      .select("*")
-      .eq("idcompany", idCompany)
-      .order("id");
+export async function getProductsByIDCompany(idCompany: string) {
+  let { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("idcompany", idCompany)
+    .order("description", { ascending: true });
 
   if (error) {
     console.log("Erro ao buscar produtos:", error);
