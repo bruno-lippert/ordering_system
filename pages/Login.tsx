@@ -7,6 +7,7 @@ import { getIdCompanyByID } from "../src/services/companyManagement";
 import { Company } from "../src/types/Company";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
+import Link from "next/link";
 
 export default function Login() {
   const [login, setLogin] = useState<Login>({ username: "", password: "" });
@@ -20,18 +21,15 @@ export default function Login() {
       fetchedUser !== undefined &&
       fetchedUser.length > 0
     ) {
-
-      const user = fetchedUser[0]
+      const user = fetchedUser[0];
       localStorage.setItem("currentIdCompany", user.idcompany.toString());
       localStorage.setItem("currentUser", user.username);
 
-      const company: Company[] | null = await getIdCompanyByID(
-        user.idcompany
-      );
+      const company: Company[] | null = await getIdCompanyByID(user.idcompany);
       localStorage.setItem("currentCompanyName", company![0].name);
       router.push("/System");
     } else {
-      alert("Usuário não encontrado!")
+      alert("Usuário não encontrado!");
       // toastError(`Usuário não encontrado!`);
     }
   };
@@ -83,6 +81,11 @@ export default function Login() {
           value="Entrar"
           onClick={fetchUser}
         />
+        <div className="companyRegistration">
+          <Link href="/CompanyRegistration">
+            Cadastrar empresa
+          </Link>
+        </div>
       </S.Login>
     </S.Container>
   );
