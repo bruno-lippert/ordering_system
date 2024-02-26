@@ -10,11 +10,11 @@ import SaveProductButton from "../../menageProducts/addProduct";
 import { ProductsContext } from "../../../../context/ProductsContext";
 
 type Props = {
-  itemsToDisplay: Product[]
-}
+  itemsToDisplay: Product[];
+};
 
 export default function ProductTableItem({ itemsToDisplay }: Props) {
-  const { productModal, setProductModal } = useContext(ProductsContext);
+  const { productModal, setProductModal } = useContext(ProductsContext)!;
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const products = useSelector((state: any) => state.productsReducer.products);
@@ -62,10 +62,7 @@ export default function ProductTableItem({ itemsToDisplay }: Props) {
       </S.ItemsContainer>
 
       {productModal && (
-        <ProductModal
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-        />
+        <ProductModal isEditing={isEditing} setIsEditing={setIsEditing} />
       )}
     </>
   );

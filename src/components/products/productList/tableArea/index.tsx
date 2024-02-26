@@ -9,46 +9,72 @@ import { ProductsContext } from "../../../../context/ProductsContext";
 import { MdArrowBackIos } from "react-icons/md";
 import { MdArrowForwardIos } from "react-icons/md";
 import AddProductButton from "../../menageProducts/addProduct";
-
-
+import { useRouter } from "next/router";
 
 export default function ProductTableArea() {
-  const { productDescriptionToFilter } = useContext(ProductsContext);
+  const { productDescriptionToFilter } = useContext(ProductsContext)!;
+
   const dispatch = useDispatch();
+  const router = useRouter()
+
   const [products, setProducts] = useState<Product[]>([]);
   const [idCompany, setIdCompany] = useState<string>();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsToDisplay, setItemsToDisplay] = useState<Product[]>();
-  const [totalPages, setTotalPages] = useState<number>();
+  const [totalPages, setTotalPages] = useState<number>(1);
 
   const itemsPerPager = 10;
   const starIndex = (currentPage - 1) * itemsPerPager;
   const endIndex = starIndex + itemsPerPager;
 
   useEffect(() => {
-    //localStorage.setItem("", "46");
-    setIdCompany(localStorage.getItem("currentIdCompany"));
+    const id = localStorage.getItem("currentIdCompany");
+    if(id) {
+      setIdCompany(id)
+      console.log(id)
+    } else {
+      alert("Empresa não encontrada!")
+      localStorage.clear()
+      router.push('/Login')
+    }
     fetchProducts();
-  }, [products, productDescriptionToFilter]);
+  }, []);
+
+  useEffect(() => {
+    if(idCompany){
+      fetchProducts()
+    }
+    
+  }, [idCompany, productDescriptionToFilter])
+
 
   const fetchProducts = async () => {
     try {
-      const fetchedProducts = await getProductsByIDCompany(idCompany);
+      if (idCompany) {
+        const fetchedProducts = await getProductsByIDCompany(idCompany);
+        console.log(idCompany)
 
-      // Se houver uma descrição, filtre os produtos com base nela
-      const filteredProducts = productDescriptionToFilter
-        ? fetchedProducts.filter((product) =>
-            product.description
-              .toLowerCase()
-              .includes(productDescriptionToFilter.toLowerCase())
-          )
-        : fetchedProducts;
-
-        
-
-      setProducts(filteredProducts);
+        if (fetchedProducts !== null) {
+          // Se houver uma descrição, filtre os produtos com base nela
+          const filteredProducts = productDescriptionToFilter
+            ? fetchedProducts.filter((product) =>
+                product.description
+                  .toLowerCase()
+                  .includes(productDescriptionToFilter.toLowerCase())
+              )
+            : fetchedProducts;
+          setProducts(filteredProducts);
+        }
+      } else{
+        setProducts([])
+      }
     } catch {
-      setProducts([]);
+      setProducts([{
+        description:"teste",
+        price:5,
+        stockquantity:5,
+        unitofmeasure: "unid",
+      }]);
     }
   };
 
@@ -72,11 +98,11 @@ export default function ProductTableArea() {
   };
 
   const goToFirstPage = () => {
-    setCurrentPage(1)
-  }
+    setCurrentPage(1);
+  };
   const goToLastPage = () => {
-    setCurrentPage(totalPages)
-  }
+    setCurrentPage(totalPages);
+  };
 
   return (
     <S.TableAreaContainer>
@@ -107,23 +133,30 @@ export default function ProductTableArea() {
             <h3>Unid de medida</h3>
           </S.TableHeadColumn>
         </S.TableHeadContainer>
-        <ProductTableItem itemsToDisplay={itemsToDisplay} />
+        <ProductTableItem itemsToDisplay={itemsToDisplay ?? []} />
 
-        <div style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "10px 0"
-        }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "10px 0",
+          }}
+        >
           <AddProductButton />
           <S.PageControlContainer>
-
-            <S.FirstPage onClick={goToFirstPage} disabled={currentPage == 1 ? true : false}>
+            <S.FirstPage
+              onClick={goToFirstPage}
+              disabled={currentPage == 1 ? true : false}
+            >
               <MdArrowBackIos />
               <MdArrowBackIos />
             </S.FirstPage>
 
-            <S.PreviousPage onClick={handlePreviousPage} disabled={currentPage == 1 ? true : false}>
+            <S.PreviousPage
+              onClick={handlePreviousPage}
+              disabled={currentPage == 1 ? true : false}
+            >
               <MdArrowBackIos />
             </S.PreviousPage>
 
@@ -131,11 +164,17 @@ export default function ProductTableArea() {
               {currentPage} de {totalPages}
             </S.PageControl>
 
-            <S.NextPage onClick={handleNextPage} disabled={currentPage == totalPages ? true : false}>
+            <S.NextPage
+              onClick={handleNextPage}
+              disabled={currentPage == totalPages ? true : false}
+            >
               <MdArrowForwardIos />
             </S.NextPage>
 
-            <S.LastPage onClick={goToLastPage} disabled={currentPage == totalPages ? true : false}>
+            <S.LastPage
+              onClick={goToLastPage}
+              disabled={currentPage == totalPages ? true : false}
+            >
               <MdArrowForwardIos />
               <MdArrowForwardIos />
             </S.LastPage>

@@ -2,7 +2,14 @@ import { createContext, useState } from "react";
 import { getProductsByIDCompany } from "../services/productsManagement";
 import { Product } from "../types/Product";
 
-export const ProductsContext = createContext(undefined);
+interface ProductsContextProps {
+  productDescriptionToFilter: string | undefined;
+  setproductDescriptionToFilter: React.Dispatch<React.SetStateAction<string | undefined>>;
+  productModal: boolean;
+  setProductModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const ProductsContext = createContext<ProductsContextProps | undefined>(undefined);
 
 export default function ProductsProvider({ children }) {
   const [productDescriptionToFilter, setproductDescriptionToFilter] = useState<string>();

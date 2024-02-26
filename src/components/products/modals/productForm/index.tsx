@@ -19,11 +19,8 @@ type Props = {
   setIsEditing: (v: boolean) => void;
 };
 
-export default function ProductModal({
-  isEditing,
-  setIsEditing,
-}: Props) {
-  const { productModal, setProductModal } = useContext(ProductsContext);
+export default function ProductModal({ isEditing, setIsEditing }: Props) {
+  const { productModal, setProductModal } = useContext(ProductsContext)!;
   const dispatch = useDispatch();
   const [prod, setProd] = useState<Product>({
     id: "",
@@ -85,7 +82,7 @@ export default function ProductModal({
   const saveProduct = async () => {
     if (validation()) {
       if (isEditing) {
-        await updatePtoduct(prod, prod.id);
+        await updatePtoduct(prod, prod.id!);
 
         setIsEditing(false);
         setProductModal(false);
@@ -103,8 +100,12 @@ export default function ProductModal({
   };
 
   const delProduct = async () => {
-    await deletePtoduct(prod.id);
-    setProductModal(false);
+    try {
+      await deletePtoduct(prod.id!);
+      setProductModal(false);
+    } catch {
+      toastError(`Erro ao excluir produto!`)
+    }
   };
 
   const validation = () => {

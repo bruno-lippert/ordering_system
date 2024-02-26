@@ -6,26 +6,33 @@ import { userSingIn } from "../src/services/userManagement";
 import { getIdCompanyByID } from "../src/services/companyManagement";
 import { Company } from "../src/types/Company";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Login() {
   const [login, setLogin] = useState<Login>({ username: "", password: "" });
-  const [user, setUser] = useState<User[]>();
 
-  const router = useRouter()
+  const router = useRouter();
 
   const fetchUser = async () => {
-    try {
-      setUser(await userSingIn(login.username, login.password));
-    } catch {}
+    const fetchedUser = await userSingIn(login.username, login.password);
+    if (
+      fetchedUser !== null &&
+      fetchedUser !== undefined &&
+      fetchedUser.length > 0
+    ) {
 
-    if (user) {
-      localStorage.setItem("currentIdCompany", user[0].idcompany.toString());
-      localStorage.setItem("currentUser", user[0].username);
+      const user = fetchedUser[0]
+      localStorage.setItem("currentIdCompany", user.idcompany.toString());
+      localStorage.setItem("currentUser", user.username);
 
-      const company: Company[] = await getIdCompanyByID(user[0].idcompany)
-      localStorage.setItem("currentCompanyName", company[0].name);
-
-      router.push('/System')
+      const company: Company[] | null = await getIdCompanyByID(
+        user.idcompany
+      );
+      localStorage.setItem("currentCompanyName", company![0].name);
+      router.push("/System");
+    } else {
+      alert("Usuário não encontrado!")
+      // toastError(`Usuário não encontrado!`);
     }
   };
 
@@ -35,6 +42,13 @@ export default function Login() {
 
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLogin({ ...login, password: e.target.value });
+  };
+
+  const toastError = (message: string) => {
+    toast.error(message, {
+      position: toast.POSITION.TOP_RIGHT,
+      theme: "colored",
+    });
   };
 
   return (

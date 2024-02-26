@@ -9,8 +9,15 @@ export default function Navbar() {
     const router = useRouter();
   
     useEffect(() => {
-      setCurrentUser(localStorage.getItem("currentUser"))
-      setCurrentCompany(localStorage.getItem("currentCompanyName"))
+      const user = localStorage.getItem("currentUser")
+      const company = localStorage.getItem("currentCompanyName")
+      if(user !== undefined && user !== null && company !== undefined && company !== null) {
+      setCurrentUser(user)
+      setCurrentCompany(company)
+      } else {
+        alert("Usuário não encontrado!")
+        logout();
+      }
     })
     
     const logout = () => {
