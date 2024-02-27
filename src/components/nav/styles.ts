@@ -6,8 +6,6 @@ export const Container = styled.div`
         margin: 0;
         padding: 0;
     }
-
-    background-color: ${colors.quinary};
 `; 
 
 export const Nav = styled.nav`
