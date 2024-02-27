@@ -9,12 +9,12 @@ interface ProductsState {
 const initialState: ProductsState = {
   products: [],
   selectedProduct: {
-    id: null,
-    description: null,
-    idcompany: null,
-    price: null,
-    stockquantity: null,
-    unitofmeasure: null
+    id: undefined,
+    description: '',
+    idcompany: undefined,
+    price: 0,
+    stockquantity: 0,
+    unitofmeasure: ''
   }
 };
 
