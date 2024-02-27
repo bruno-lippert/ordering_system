@@ -86,6 +86,7 @@ export default function ProductModal({ isEditing, setIsEditing }: Props) {
 
         setIsEditing(false);
         setProductModal(false);
+        await fetchProducts()
       } else {
         await createProduct({
           idcompany: Number(localStorage.getItem("currentIdCompany")),
@@ -95,7 +96,7 @@ export default function ProductModal({ isEditing, setIsEditing }: Props) {
           unitofmeasure: prod.unitofmeasure,
         });
         setProductModal(false);
-        fetchProducts()
+        await fetchProducts()
       }
     }
   };
@@ -104,7 +105,7 @@ export default function ProductModal({ isEditing, setIsEditing }: Props) {
     try {
       await deletePtoduct(prod.id!);
       setProductModal(false);
-      fetchProducts()
+      await fetchProducts()
     } catch {
       toastError(`Erro ao excluir produto!`)
     }
