@@ -11,7 +11,6 @@ export const Container = styled.div`
 
 
 export const Content = styled.div`
-    background-color: ${colors.quaternary};
     height: 100%;
     border-radius: 35px;
 `;
