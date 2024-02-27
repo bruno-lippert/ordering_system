@@ -7,7 +7,7 @@ export const Container = styled.div`
     align-items: center;
 
     height: 100vh;
-    background-color: ${colors.quinary};
+    background-color: ${colors.secondary};
 `;
 
 export const Company = styled.main `
@@ -61,7 +61,7 @@ export const Company = styled.main `
         }
 
         &:active {
-            background-color: ${colors.quaternary};
+            background-color: ${colors.tertiary};
         }
     }
 
