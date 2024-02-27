@@ -3,7 +3,7 @@ import * as S from "./styles";
 import { ProductsContext } from "../../../context/ProductsContext";
 
 export default function ProductFilter() {
-  const { productDescriptionToFilter, setproductDescriptionToFilter } = useContext(ProductsContext);
+  const { productDescriptionToFilter, setproductDescriptionToFilter } = useContext(ProductsContext)!;
 
   const handleProductDescriptionChange = (
     event: React.ChangeEvent<HTMLInputElement>
