@@ -4,7 +4,6 @@ import { colors } from "../../../styles/themes/theme";
 export const Container = styled.section`
   display: flex;
   gap: 15px;
-  margin: 0 0 20px 20px;
 `;
 
 export const Button = styled.button`
@@ -17,5 +16,10 @@ export const Button = styled.button`
 
     &:active {
         background-color: ${colors.secondary};
+    }
+
+    @media (max-width: 450px) {
+      width: 80px;
+      height: 40px;
     }
 `;

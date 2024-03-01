@@ -22,10 +22,29 @@ export const Items = styled.div<{ width?: number }>`
   cursor: pointer;
 `;
 
-export const ItemsProperty = styled.div<{ width?: number }>`
+export const ItemDescription = styled.div<{ width?: number }>`
   display: flex;
   align-items: center;
   border: 1px solid black;
   width: ${(props) => (props.width ? `${props.width}%` : `auto`)};
   padding-left: 5px;
+
+  @media (max-width: 500px) {
+    width: 30%;
+  }
+`;
+export const ItemPrice = styled(ItemDescription)`
+  @media (max-width: 500px) {
+    width: 25%;
+  }
+`;
+export const ItemStockQuantity = styled(ItemDescription)`
+  @media (max-width: 500px) {
+    width: 25%;
+  }
+`;
+export const ItemUnitOfMeasure = styled(ItemDescription)`
+  @media (max-width: 500px) {
+    width: 20%;
+  }
 `;

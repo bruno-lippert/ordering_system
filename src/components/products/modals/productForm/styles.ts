@@ -34,6 +34,12 @@ export const ContentContainer = styled.div`
     cursor: pointer;
     font-size: 2em;
   }
+
+  @media (max-width: 1400px) {
+    width: 400px;
+    margin: 0 30px;
+    height: 450px;
+  }
 `;
 
 export const InfosProduct = styled.form`
@@ -41,36 +47,40 @@ export const InfosProduct = styled.form`
   flex-direction: column;
   gap: 10px;
   width: 80%;
+
+  @media (max-width: 400px) {
+    width: 100%;
+  }
 `;
 
 export const Input = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   gap: 5px;
   width: 100%;
-  background-color: ${colors.primary};
   padding: 5px;
-
-  border-radius: 10px;
 
   input {
     border: none;
     padding: 5px;
     background-color: ${colors.primary};
     width: 100%;
-    text-align: end;
+    border-radius: 10px;
 
-    /* &.teste {
+    &#price {
       &::-webkit-inner-spin-button,
       &::-webkit-outer-spin-button {
         -webkit-appearance: none;
         margin: 0;
       }
-    } */
+    }
   }
 
   select {
     background-color: ${colors.primary};
     border: none;
+    border-radius: 10px;
+    padding: 5px;
   }
 `;

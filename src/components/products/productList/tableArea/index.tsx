@@ -12,7 +12,14 @@ import AddProductButton from "../../menageProducts/addProduct";
 import { useRouter } from "next/router";
 
 export default function ProductTableArea() {
-  const { productDescriptionToFilter, idCompany, setIdCompany, products, setProducts, fetchProducts } = useContext(ProductsContext)!;
+  const {
+    productDescriptionToFilter,
+    idCompany,
+    setIdCompany,
+    products,
+    setProducts,
+    fetchProducts,
+  } = useContext(ProductsContext)!;
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -95,81 +102,81 @@ export default function ProductTableArea() {
 
   return (
     <S.TableAreaContainer>
-      <S.Table>
-        <S.TableHeadContainer>
-          <S.TableHeadColumn
-            width={45}
-            style={{
-              borderTopLeftRadius: "8px",
-              borderBottomLeftRadius: "8px",
-            }}
+      <S.TableContainer>
+        <S.Table>
+          <S.TableHeadContainer>
+            <S.TableHeadColumnDescription
+              className="tableHeadColumn"
+              width={60}
+              style={{
+                borderTopLeftRadius: "8px",
+                borderBottomLeftRadius: "8px",
+              }}
+            >
+              <h3>Descrição</h3>
+            </S.TableHeadColumnDescription>
+            <S.TableHeadColumnPrice className="tableHeadColumn" width={20}>
+              <h3>Preço</h3>
+            </S.TableHeadColumnPrice>
+            <S.TableHeadColumnStockQuantity
+              className="tableHeadColumn"
+              width={10}
+            >
+              <h3>Em estoque</h3>
+            </S.TableHeadColumnStockQuantity>
+            <S.TableHeadColumnUnitOfMeasure
+              className="tableHeadColumn"
+              width={10}
+              style={{
+                borderTopRightRadius: "8px",
+                borderBottomRightRadius: "8px",
+              }}
+            >
+              <h3>Unid de medida</h3>
+            </S.TableHeadColumnUnitOfMeasure>
+          </S.TableHeadContainer>
+          <ProductTableItem itemsToDisplay={itemsToDisplay ?? []} />
+        </S.Table>
+      </S.TableContainer>
+
+      <S.ProductManagementPanel      >
+        <AddProductButton />
+        <S.PageControlContainer>
+          <S.FirstPage
+            onClick={goToFirstPage}
+            disabled={currentPage == 1 ? true : false}
           >
-            <h3>Descrição</h3>
-          </S.TableHeadColumn>
-          <S.TableHeadColumn width={25}>
-            <h3>Preço</h3>
-          </S.TableHeadColumn>
-          <S.TableHeadColumn width={15}>
-            <h3>Em estoque</h3>
-          </S.TableHeadColumn>
-          <S.TableHeadColumn
-            width={15}
-            style={{
-              borderTopRightRadius: "8px",
-              borderBottomRightRadius: "8px",
-            }}
+            <MdArrowBackIos />
+            <MdArrowBackIos />
+          </S.FirstPage>
+
+          <S.PreviousPage
+            onClick={handlePreviousPage}
+            disabled={currentPage == 1 ? true : false}
           >
-            <h3>Unid de medida</h3>
-          </S.TableHeadColumn>
-        </S.TableHeadContainer>
-        <ProductTableItem itemsToDisplay={itemsToDisplay ?? []} />
+            <MdArrowBackIos />
+          </S.PreviousPage>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "10px 0",
-          }}
-        >
-          <AddProductButton />
-          <S.PageControlContainer>
-            <S.FirstPage
-              onClick={goToFirstPage}
-              disabled={currentPage == 1 ? true : false}
-            >
-              <MdArrowBackIos />
-              <MdArrowBackIos />
-            </S.FirstPage>
+          <S.PageControl>
+            {currentPage} de {totalPages}
+          </S.PageControl>
 
-            <S.PreviousPage
-              onClick={handlePreviousPage}
-              disabled={currentPage == 1 ? true : false}
-            >
-              <MdArrowBackIos />
-            </S.PreviousPage>
+          <S.NextPage
+            onClick={handleNextPage}
+            disabled={currentPage == totalPages ? true : false}
+          >
+            <MdArrowForwardIos />
+          </S.NextPage>
 
-            <S.PageControl>
-              {currentPage} de {totalPages}
-            </S.PageControl>
-
-            <S.NextPage
-              onClick={handleNextPage}
-              disabled={currentPage == totalPages ? true : false}
-            >
-              <MdArrowForwardIos />
-            </S.NextPage>
-
-            <S.LastPage
-              onClick={goToLastPage}
-              disabled={currentPage == totalPages ? true : false}
-            >
-              <MdArrowForwardIos />
-              <MdArrowForwardIos />
-            </S.LastPage>
-          </S.PageControlContainer>
-        </div>
-      </S.Table>
+          <S.LastPage
+            onClick={goToLastPage}
+            disabled={currentPage == totalPages ? true : false}
+          >
+            <MdArrowForwardIos />
+            <MdArrowForwardIos />
+          </S.LastPage>
+        </S.PageControlContainer>
+      </S.ProductManagementPanel>
     </S.TableAreaContainer>
   );
 }

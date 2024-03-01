@@ -12,9 +12,9 @@ export default function ProductFilter() {
   };
 
   return (
-    <S.Container>
+    <S.FilterContainer>
       <S.InputArea>
-        <div className="input">
+        <div className="inputContainer">
           <label htmlFor="description">Descrição: </label>
           <input
             type="text"
@@ -25,6 +25,6 @@ export default function ProductFilter() {
           />
         </div>
       </S.InputArea>
-    </S.Container>
+    </S.FilterContainer>
   );
 }

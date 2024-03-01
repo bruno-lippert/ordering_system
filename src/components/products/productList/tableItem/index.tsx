@@ -32,28 +32,30 @@ export default function ProductTableItem({ itemsToDisplay }: Props) {
         {itemsToDisplay ? (
           itemsToDisplay.map((prod) => (
             <S.Items key={prod.id} onClick={() => handleProductModal(prod)}>
-              <S.ItemsProperty
-                width={45}
-                style={{
-                  borderTopLeftRadius: "8px",
-                  borderBottomLeftRadius: "8px",
-                }}
-              >
-                {prod.description}
-              </S.ItemsProperty>
-              <S.ItemsProperty width={25}>
+                <S.ItemDescription
+                  width={60}
+                  style={{
+                    borderTopLeftRadius: "8px",
+                    borderBottomLeftRadius: "8px",
+                  }}
+                >
+                  {prod.description}
+                </S.ItemDescription>
+              <S.ItemPrice width={20}>
                 R$ {priceFormatting(prod.price.toString())}
-              </S.ItemsProperty>
-              <S.ItemsProperty width={15}>{prod.stockquantity}</S.ItemsProperty>
-              <S.ItemsProperty
-                width={15}
+              </S.ItemPrice>
+              <S.ItemStockQuantity width={10}>
+                {prod.stockquantity}
+              </S.ItemStockQuantity>
+              <S.ItemUnitOfMeasure
+                width={10}
                 style={{
                   borderTopRightRadius: "8px",
                   borderBottomRightRadius: "8px",
                 }}
               >
                 {prod.unitofmeasure}
-              </S.ItemsProperty>
+              </S.ItemUnitOfMeasure>
             </S.Items>
           ))
         ) : (

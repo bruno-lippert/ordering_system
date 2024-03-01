@@ -154,7 +154,6 @@ export default function ProductModal({ isEditing, setIsEditing }: Props) {
               type="number"
               name="price"
               id="price"
-              className="teste"
               onChange={handlePriceChange}
               value={prod.price}
             />
@@ -172,7 +171,7 @@ export default function ProductModal({ isEditing, setIsEditing }: Props) {
           </S.Input>
 
           <S.Input>
-            <label htmlFor="unitofmeasure">Uni de medida:</label>
+            <label htmlFor="unitofmeasure">Unidade de medida:</label>
             <select
               name="unitofmeasure"
               id="unitofmeasure"

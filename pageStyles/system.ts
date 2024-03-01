@@ -10,4 +10,8 @@ export const Container = styled.div`
     height: 100%;
     min-height: 100vh;
     padding: 0 50px 50px 50px;
+
+    @media (max-width: 500px) {
+        padding: 0 15px 15px 15px;
+    }
 `;
