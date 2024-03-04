@@ -79,27 +79,49 @@ export default function companyRegistration() {
     setCompany({ ...company, country: e.target.value.trim() });
   };
 
+  // const validation = () => {
+  //   if (company.name === "") {
+  //     toastError(`Nome da empresa não informado!`);
+  //     return false;
+  //   } else if (company.cnpj === "") {
+  //     toastError(`CNPJ não informado!`);
+  //     return false;
+  //   } else if (company.street === "") {
+  //     toastError(`Rua não informada!`);
+  //   } else if (company.neighborhood === "") {
+  //     toastError(`Bairro não informado!`);
+  //   } else if (company.city === "") {
+  //     toastError(`Cidade não informado!`);
+  //   } else if (!states.includes(company.state)) {
+  //     toastError(`Selecione um estado!`);
+  //   } else if (company.country === "") {
+  //     toastError(`País não informado!`);
+  //   } else {
+  //     return true;
+  //   }
+  // };
+
   const validation = () => {
-    if (company.name === "") {
-      toastError(`Nome da empresa não informado!`);
-      return false;
-    } else if (company.cnpj === "") {
-      toastError(`CNPJ não informado!`);
-      return false;
-    } else if (company.street === "") {
-      toastError(`Rua não informada!`);
-    } else if (company.neighborhood === "") {
-      toastError(`Bairro não informado!`);
-    } else if (company.city === "") {
-      toastError(`Cidade não informado!`);
-    } else if (!states.includes(company.state)) {
-      toastError(`Selecione um estado!`);
-    } else if (company.country === "") {
-      toastError(`País não informado!`);
-    } else {
-      return true;
+    const requiredFields = [
+      { field: company.name, message: "Nome da empresa não informado!" },
+      { field: company.cnpj, message: "CNPJ não informado!" },
+      { field: company.street, message: "Rua não informada!" },
+      { field: company.neighborhood, message: "Bairro não informado!" },
+      { field: company.city, message: "Cidade não informada!" },
+      { field: company.state, message: "Selecione um estado!", check: (value) => !states.includes(value) },
+      { field: company.country, message: "País não informado!" }
+    ];
+  
+    for (const { field, message, check } of requiredFields) {
+      if (!field || (check && check(field))) {
+        toastError(message);
+        return false;
+      }
     }
+  
+    return true;
   };
+  
 
   const register = async () => {
     if (validation()) {
