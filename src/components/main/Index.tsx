@@ -9,8 +9,6 @@ export default function Main() {
     <S.Container>
       <S.Content>
         <Products />
-        <Orders />
-        <Costumers />
       </S.Content>
     </S.Container>
   )
