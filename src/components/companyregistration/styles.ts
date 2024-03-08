@@ -37,6 +37,11 @@ export const Company = styled.main`
   .inputsContainer {
     margin: 0 20px;
     width: 85%;
+
+    .cepContainer {
+      display: flex;
+      gap: 10px;
+    }
   }
 
   input[type="text"],
@@ -49,12 +54,20 @@ export const Company = styled.main`
     border: none;
     padding: 2px;
     background-color: ${colors.secondary};
+
+    &#cep {
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
   }
   input[type="submit"] {
     border-radius: 5px;
     padding: 5px;
     margin: 15px 0 5px 0;
-    background-color: #fff;
+    background-color: ${colors.secondary};
     border: none;
 
     &:hover {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Company } from "../../types/Company";
 import { useRouter } from "next/router";
 import {
@@ -8,6 +8,10 @@ import {
 import { userSingUp } from "../../services/userManagement";
 import { ToastContainer, toast } from "react-toastify";
 import * as S from "./styles";
+import ZipCodeLookup from "../buttons/zipCodeLookup/zipCodeLookup";
+import CompanyRegistrationProvider, { CompanyRegistrationContext } from "../../context/CompanyRegistrationContext";
+import { cepValidation, cnpjValidation } from "../../helpers/validations";
+import { validarExistenciaCEP } from "../../services/APIs/cepAPI";
 
 export default function Index() {
   const states = [
@@ -40,17 +44,17 @@ export default function Index() {
     "TO",
   ];
 
-  const [company, setCompany] = useState<Company>({
-    name: "",
-    cnpj: "",
-    cep: "",
-    street: "",
-    neighborhood: "",
-    city: "",
-    state: "",
-    country: "",
-  });
-
+  // const [company, setCompany] = useState<Company>({
+  //   name: "",
+  //   cnpj: "",
+  //   cep: "",
+  //   street: "",
+  //   neighborhood: "",
+  //   city: "",
+  //   state: "",
+  //   country: "",
+  // });
+  const { company, setCompany } = useContext(CompanyRegistrationContext)!
   const router = useRouter();
 
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,7 +82,7 @@ export default function Index() {
     setCompany({ ...company, country: e.target.value.trim() });
   };
 
-  const validation = () => {
+  const validation = async () => {
     const requiredFields = [
       { field: company.name, message: "Nome da empresa não informado!" },
       { field: company.cnpj, message: "CNPJ não informado!" },
@@ -109,23 +113,15 @@ export default function Index() {
       alert("CNPJ inválido!");
       return false;
     }
+    if ((await validarExistenciaCEP(company.cep)) == false) {
+      return false;
+    }
 
     return true;
   };
 
-  const cepValidation = (cep) => {
-    const regexCEP = /^[0-9]{5}[0-9]{3}$/;
-    console.log(regexCEP.test(cep))
-    return regexCEP.test(cep);
-  };
-
-  const cnpjValidation = (cnpj) => {
-    const regexCNPJ = /^\d{2}\d{3}\d{3}\d{4}\d{2}$/;
-    return regexCNPJ.test(cnpj);
-  };
-
   const register = async () => {
-    if (validation()) {
+    if (await validation()) {
       await regiterCompany(company);
 
       const data = await getIdCompanyByCNPJ(Number(company.cnpj));
@@ -175,106 +171,109 @@ export default function Index() {
 
   return (
     <S.Container>
-      <S.Company>
-        <h1>Registrar empresa</h1>
-        <div className="inputsContainer">
-          <label htmlFor="companyName">Nome da empresa: </label>
-          <input
-            className="inputData"
-            type="text"
-            id="companyName"
-            value={company.name}
-            onChange={handleName}
-          />
-        </div>
+        <S.Company>
+          <h1>Registrar empresa</h1>
+          <div className="inputsContainer">
+            <label htmlFor="companyName">Nome da empresa: </label>
+            <input
+              className="inputData"
+              type="text"
+              id="companyName"
+              value={company.name}
+              onChange={handleName}
+            />
+          </div>
 
-        <div className="inputsContainer">
-          <label htmlFor="cnpj">CNPJ: </label>
-          <input
-            className="inputData"
-            type="text"
-            id="cnpj"
-            value={company.cnpj}
-            onChange={handleCNPJ}
-          />
-        </div>
+          <div className="inputsContainer">
+            <label htmlFor="cnpj">CNPJ: </label>
+            <input
+              className="inputData"
+              type="text"
+              id="cnpj"
+              value={company.cnpj}
+              onChange={handleCNPJ}
+            />
+          </div>
 
-        <div className="inputsContainer">
-          <label htmlFor="cnpj">CEP: </label>
-          <input
-            className="inputData"
-            type="number"
-            id="cep"
-            value={company.cep}
-            onChange={handleCEP}
-          />
-        </div>
+          <div className="inputsContainer">
+            <label htmlFor="cnpj">CEP: </label>
+            <div className="cepContainer">
+              <input
+                className="inputData"
+                type="number"
+                id="cep"
+                value={company.cep}
+                onChange={handleCEP}
+              />
+              <ZipCodeLookup />
+            </div>
+          </div>
 
-        <div className="inputsContainer">
-          <label htmlFor="street">Rua: </label>
-          <input
-            className="inputData"
-            type="text"
-            id="street"
-            value={company.street}
-            onChange={handleStreet}
-          />
-        </div>
+          <div className="inputsContainer">
+            <label htmlFor="street">Rua: </label>
+            <input
+              className="inputData"
+              type="text"
+              id="street"
+              value={company.street}
+              onChange={handleStreet}
+            />
+          </div>
 
-        <div className="inputsContainer">
-          <label htmlFor="neighborhood">Bairro: </label>
-          <input
-            className="inputData"
-            type="text"
-            id="neighborhood"
-            value={company.neighborhood}
-            onChange={handleNeighborhood}
-          />
-        </div>
+          <div className="inputsContainer">
+            <label htmlFor="neighborhood">Bairro: </label>
+            <input
+              className="inputData"
+              type="text"
+              id="neighborhood"
+              value={company.neighborhood}
+              onChange={handleNeighborhood}
+            />
+          </div>
 
-        <div className="inputsContainer">
-          <label htmlFor="city">Cidade: </label>
-          <input
-            className="inputData"
-            type="text"
-            value={company.city}
-            onChange={handleCity}
-          />
-        </div>
+          <div className="inputsContainer">
+            <label htmlFor="city">Cidade: </label>
+            <input
+              className="inputData"
+              type="text"
+              value={company.city}
+              onChange={handleCity}
+            />
+          </div>
 
-        <div className="inputsContainer">
-          Estado:
-          <select
-            className="inputData"
-            id="state"
-            onChange={handleState}
-            value={company.state}
-          >
-            <option value=""></option>
-            {states.map((state, key) => {
-              return (
-                <option key={key} value={state}>
-                  {state}
-                </option>
-              );
-            })}
-          </select>
-        </div>
+          <div className="inputsContainer">
+            Estado:
+            <select
+              className="inputData"
+              id="state"
+              onChange={handleState}
+              value={company.state}
+            >
+              <option value=""></option>
+              {states.map((state, key) => {
+                return (
+                  <option key={key} value={state}>
+                    {state}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
 
-        <div className="inputsContainer">
-          <label htmlFor="country">País: </label>
-          <input
-            className="inputData"
-            type="text"
-            id="country"
-            value={company.country}
-            onChange={handleCountry}
-          />
-        </div>
+          <div className="inputsContainer">
+            <label htmlFor="country">País: </label>
+            <input
+              className="inputData"
+              type="text"
+              id="country"
+              value={company.country}
+              onChange={handleCountry}
+            />
+          </div>
 
-        <input type="submit" value="Cadastrar" onClick={register} />
-      </S.Company>
-      <ToastContainer />
+          <input type="submit" value="Cadastrar" onClick={register} />
+        </S.Company>
+        <ToastContainer />
     </S.Container>
   );
 }
