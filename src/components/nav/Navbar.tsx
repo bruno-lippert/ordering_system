@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Navbar() {
   const [currentUser, setCurrentUser] = useState<string>("");
@@ -35,10 +36,14 @@ export default function Navbar() {
       <S.Nav>
         <S.NavItensContainer>
           <S.Navitens>
-            <p>Clientes</p>
+            <Link href="/Costumers">
+              <p>Clientes</p>
+            </Link>
           </S.Navitens>
           <S.Navitens>
-            <p>Produtos</p>
+            <Link href="/Products">
+              <p>Produtos</p>
+            </Link>
           </S.Navitens>
           <S.Navitens>
             <p>Pedidos</p>
